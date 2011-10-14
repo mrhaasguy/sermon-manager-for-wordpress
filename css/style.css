@@ -1,0 +1,35 @@
+/* Sermon Manager CSS http://www.wpforchurch.com/plugins/sermon-manager/ */
+
+div.wpfc_sermon-audio {
+padding-top: 10px;
+max-width: 100%;
+padding-bottom: 10px;
+}
+
+div.wpfc_sermon-video {
+padding-top: 10px;
+max-width: 100%;
+padding-bottom: 10px;
+}
+
+.single-wpfc_sermon a[href$='.ppt'], .single-wpfc_sermon a[href$='.pptx'] {
+	background:url(icons/ppt.png) no-repeat  no-repeat center left;
+	padding-left:20px;
+    height: 16px;
+	line-height: 16px;
+}
+.single-wpfc_sermon a[href$='.doc'], .single-wpfc_sermon a[href$='.rtf'], .single-wpfc_sermon a[href$='.docx']  {
+	background:url(icons/word.png) no-repeat  no-repeat center left;
+	padding-left:20px;
+    height: 16px;
+	line-height: 16px;
+}
+.single-wpfc_sermon a[href$='.pdf'] {
+	background:url(icons/pdf.png) no-repeat  no-repeat center left;
+	padding-left:20px;
+    height: 16px;
+	line-height: 16px;
+}
+
+/* fixes for  Twenty Ten*/
+.single-wpfc_sermon .entry-meta, .single-wpfc_sermon  .entry-summary p, .post-type-archive-wpfc_sermon .entry-utility, .post-type-archive-wpfc_sermon .entry-summary p, .post-type-archive-wpfc_sermon .entry-meta {display: none;}
