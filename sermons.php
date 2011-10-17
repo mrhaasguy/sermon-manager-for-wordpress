@@ -250,6 +250,7 @@ function admin_script_post() {
 		wp_enqueue_style('thickbox');
 		wp_enqueue_script('jquery-ui-datepicker', plugins_url('/js/jquery-ui-1.8.14.datepicker.min.js', __FILE__) );
 		wp_enqueue_style('jquery-ui', plugins_url('/css/jquery.ui.datepicker.css', __FILE__) );  
+		wp_tiny_mce( TRUE, Array( "editor_selector" => "wysiwyg" ) );
 		//wp_enqueue_script('admin', $this->plugin_url . 'js/admin.js', array('jquery'), $this->version);
 		//wp_enqueue_script('admin');
 }
@@ -297,9 +298,8 @@ wp_nonce_field( plugin_basename( __FILE__ ), 'sermons_nounce' );
 	</p>
 	<p><label>Main Bible Passage:</label><br />
 	<input type="text" size="40" name="bible_passage" value="<?php echo $bible_passage; ?>" /></p>
-	<!-- future update, load wysiwyg editor -->
 	<p><label>Sermon Description:</label><br />
-	<textarea cols="100" rows="7" id="sermon_description" name="sermon_description"><?php echo $sermon_description; ?></textarea></p>
+	<textarea cols="100" rows="10" id="sermon_description" name="sermon_description" class="wysiwyg"><?php echo $sermon_description; ?></textarea></p>
 	<br />
 	<?php
 }
