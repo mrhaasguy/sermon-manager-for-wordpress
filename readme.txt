@@ -3,7 +3,7 @@ Contributors: wpforchurch
 Donate link: http://wpforchurch.com/
 Tags: church, sermon, sermons, preaching
 Requires at least: 3.0
-Tested up to: 3.2.1
+Tested up to: 3.3-beta1
 Stable tag: 1.0
 
 Add audio and video sermons, manage speakers, series, and more to your church website
