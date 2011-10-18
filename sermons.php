@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for WordPress
 Plugin URI: http://wpforchurch.com
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 0.9
+Version: 1.0
 Author: Jack Lamb
 Author URI: http://wpforchurch.com/
 License: GPL2
@@ -239,18 +239,22 @@ function customSearchGroup($content)
 // ==================================== End of custom search ===============
 
 //enqueue needed js and styles on sermon edit screen
-add_action('admin_menu', 'admin_script_post');
+add_action('admin_enqueue_scripts', 'admin_script_post');
 
 function admin_script_post() {
-    global $current_screen;
-    if ($current_screen->id == 'wpfc_sermon')
+global $post_type;
+	    if( 'wpfc_sermon' != $post_type )
+	        return;
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('thickbox');
 		wp_enqueue_script('media-upload');
 		wp_enqueue_style('thickbox');
 		wp_enqueue_script('jquery-ui-datepicker', plugins_url('/js/jquery-ui-1.8.14.datepicker.min.js', __FILE__) );
 		wp_enqueue_style('jquery-ui', plugins_url('/css/jquery.ui.datepicker.css', __FILE__) );  
+		if(function_exists(wp_editor)) :
+		else :
 		wp_tiny_mce( TRUE, Array( "editor_selector" => "wysiwyg" ) );
+		endif;
 		//wp_enqueue_script('admin', $this->plugin_url . 'js/admin.js', array('jquery'), $this->version);
 		//wp_enqueue_script('admin');
 }
@@ -295,12 +299,19 @@ wp_nonce_field( plugin_basename( __FILE__ ), 'sermons_nounce' );
 			<option value="Special Service"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "Special Service") : ?> selected="true"<?php endif; ?>>Special Service</option>
 			<option value="Radio Broadcast"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "Radio Broadcast") : ?> selected="true"<?php endif; ?>>Radio Broadcast</option>
 		</select>
-	</p>
-	<p><label>Main Bible Passage:</label><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label>Main Bible Passage:</label> 
 	<input type="text" size="40" name="bible_passage" value="<?php echo $bible_passage; ?>" /></p>
-	<p><label>Sermon Description:</label><br />
-	<textarea cols="100" rows="10" id="sermon_description" name="sermon_description" class="wysiwyg"><?php echo $sermon_description; ?></textarea></p>
-	<br />
+	<?php if(function_exists(wp_editor)) {
+		$settings = array(
+			'wpautop' => false,
+			'media_buttons' => false,
+		); 
+		wp_editor($sermon_description, 'sermon_description', $settings ); }
+	else { ?>
+                </p><p><label>Sermon Description:</label></p>
+		<textarea cols="100" rows="10" id="sermon_description" name="sermon_description" class="wysiwyg"><?php echo $sermon_description; ?></textarea>
+    <?php } ?>
 	<?php
 }
 //next meta box - sermon files
