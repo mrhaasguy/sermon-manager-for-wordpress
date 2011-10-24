@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for WordPress
 Plugin URI: http://wpforchurch.com
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 1.0
+Version: 1.1
 Author: Jack Lamb
 Author URI: http://wpforchurch.com/
 License: GPL2
@@ -165,9 +165,9 @@ function wpfc_sermon_updated_messages( $messages ) {
 
 // TO DO: Add more help information
 //display contextual help for Sermons
-add_action( 'contextual_help', 'add_help_text', 10, 3 );
+add_action( 'contextual_help', 'add_sermon_help_text', 10, 3 );
 
-function add_help_text($contextual_help, $screen_id, $screen) { 
+function add_sermon_help_text($contextual_help, $screen_id, $screen) { 
   //$contextual_help .= var_dump($screen); // use this to help determine $screen->id
   if ('wpfc_sermon' == $screen->id ) {
     $contextual_help =
@@ -251,6 +251,7 @@ global $post_type;
 		wp_enqueue_style('thickbox');
 		wp_enqueue_script('jquery-ui-datepicker', plugins_url('/js/jquery-ui-1.8.14.datepicker.min.js', __FILE__) );
 		wp_enqueue_style('jquery-ui', plugins_url('/css/jquery.ui.datepicker.css', __FILE__) );  
+		//backwards compatible wysiwyg editor for pre-3.3
 		if(function_exists(wp_editor)) :
 		else :
 		wp_tiny_mce( TRUE, Array( "editor_selector" => "wysiwyg" ) );
@@ -408,49 +409,49 @@ add_submenu_page('edit.php?post_type=wpfc_sermon', 'Options', 'Options', 'manage
 }
 */
 
-// Display sermon data within the regular content
-add_filter('the_content', 'addSermonContent');
-add_filter('the_excerpt', 'addSermonExcerpt');
-add_action('wp_head', 'addSermonCSS');
-
-function addSermonContent($content)
-{
-  global $post;
-  
-  if ($post->ID)
-  {
-    $p_type= get_post_type($post->ID);
-    if ($p_type == 'wpfc_sermon')
-    {
-      $content .= get_sermon();
-      // Set the counter
-      setPostViews($post->ID);
-    }
-  }
-  
-  return $content;
+/* Template selection */
+// Include template for displaying sermons by Preacher
+add_filter('template_include', 'sermon_template_include');
+function sermon_template_include($template) {
+		if(get_query_var('post_type') == 'wpfc_sermon') {
+			if ( is_archive() || is_search() ) :
+				if(file_exists(TEMPLATEDIR . '/archive-wpfc_sermon.php'))
+					return TEMPLATEDIR . '/archive-wpfc_sermon.php';
+				return dirname(__FILE__) . '/views/archive-wpfc_sermon.php';
+			else :
+				if(file_exists(TEMPLATEDIR . '/single-wpfc_sermon.php'))
+					return TEMPLATEDIR . '/single-wpfc_sermon.php';
+				return dirname(__FILE__) . '/views/single-wpfc_sermon.php';
+			endif;
+		}
+		return $template;
 }
 
-function addSermonExcerpt($content)
-{
-  global $post;
-  
-  if ($post->ID)
-  {
-    $p_type= get_post_type($post->ID);
-    if ($p_type == 'wpfc_sermon')
-    {
-      $content .= get_sermon_excerpt();
-    }
-  }
-  
-  return $content;
+// Include template for displaying sermons by Preacher
+add_filter('template_include', 'preacher_template_include');
+function preacher_template_include($template) {
+		if(get_query_var('taxonomy') == 'wpfc_preacher') {
+			if(file_exists(TEMPLATEDIR . '/taxonomy-wpfc_preacher.php'))
+				return TEMPLATEDIR . '/taxonomy-wpfc_preacher.php';
+			return dirname(__FILE__) . '/views/taxonomy-wpfc_preacher.php';
+		}
+		return $template;
 }
 
+// Include template for displaying sermon series
+add_filter('template_include', 'series_template_include');
+function series_template_include($template) {
+		if(get_query_var('taxonomy') == 'wpfc_sermon_series') {
+			if(file_exists(TEMPLATEDIR . '/taxonomy-wpfc_sermon_series.php'))
+				return TEMPLATEDIR . '/taxonomy-wpfc_sermon_series.php';
+			return dirname(__FILE__) . '/views/taxonomy-wpfc_sermon_series.php';
+		}
+		return $template;
+}
 
-function addSermonCSS()
-{
-	echo '<link rel="stylesheet" href="'.WPFC_SERMONS . '/css/style.css'.'" type="text/css" >';
+// Add scripts only to single sermon pages
+add_action('wp_head', 'add_wpfc_js');
+function add_wpfc_js() {
 	echo '<script type="text/javascript" src="'.WPFC_SERMONS . '/js/jwplayer.js"></script>';
 	?>
 	<script src="http://code.bib.ly/bibly.min.js"></script>
@@ -464,82 +465,15 @@ function addSermonCSS()
 		bibly.popupVersion = 'KJV';
 	</script>
 	<?php
-	
 }
 
-function get_sermon()
-{ global $post;
-    
-  ob_start();
-?>
-          <div id="wpfc_sermon">
-<?php $ugly_date = get_post_meta($post->ID, 'sermon_date', 'true');
-        $displayDate = date('l, F j, Y', $ugly_date);?>		  
-							<div class="wpfc_sermon-meta">
-								<p><?php echo get_post_meta($post->ID, 'bible_passage', true); ?> <?php echo the_terms( $post->ID, 'wpfc_preacher', '| ', ', ', ' ' ); ?><br/>
-								<?php echo $displayDate; ?> <?php echo the_terms( $post->ID, 'wpfc_sermon_series', '| Series: ', ', ', ' ' ); ?></p>
-							</div>
-							<?php if (get_post_meta($post->ID, 'sermon_video', true)) { ?>
-								<div class="wpfc_sermon-video"><?php echo get_post_meta($post->ID, 'sermon_video', true); ?></div>								
-							<?php } else { ?>
-								<div class="wpfc_sermon-audio">
-								<div id='mediaspace'>This text will be replaced</div>
-								<script type='text/javascript'>
-									jwplayer('mediaspace').setup({
-									'flashplayer': '<?php echo '' .plugins_url( 'js/player.swf' , __FILE__ ). ''?>',
-									'duration': '33',
-									'file': '<?php echo get_post_meta($post->ID, 'sermon_audio', true); ?>',
-									'controlbar': 'bottom',
-									'width': '400',
-									'height': '24'
-									});
-								</script>
-								</div>
-							<?php } ?>
-							<p><?php echo get_post_meta($post->ID, 'sermon_description', true); ?></p>
-							<div id="wpfc-attachments">
-								<?php
-									$args = array(
-										'post_type' => 'attachment',
-										'numberposts' => -1,
-										'post_status' => null,
-										'post_parent' => $post->ID,
-									);
-									$attachments = get_posts($args);
-									if ($attachments) {
-										echo '<p>Additional Files: <ul>';
-										foreach ($attachments as $attachment) {
-										echo '<li>&nbsp;&nbsp;<a target="_blank" href="'.wp_get_attachment_url($attachment->ID).'">';
-										echo $attachment->post_title;
-										echo '</a></li>';
-									}
-									echo '</ul></p>';
-									}
-								?>
-							</div>
-						</div>
-<?php
-$buffer = ob_get_clean();
-return $buffer;
+// Add CSS to entire site. Looks for sermon.css in the main template directory first.
+add_action('wp_head', 'add_wpfc_css');
+function add_wpfc_css() {
+	if(file_exists(TEMPLATEDIR . '/sermon.css'))
+		return TEMPLATEDIR . '/sermon.css';
+	echo '<link rel="stylesheet" href="'.WPFC_SERMONS . '/css/style.css'.'" type="text/css" >';
 }
-
-function get_sermon_excerpt() { 
-	global $post;
-	ob_start();
-?>
-<div id="wpfc_sermon">
-<?php $ugly_date = get_post_meta($post->ID, 'sermon_date', 'true');
-        $displayDate = date('l, F j, Y', $ugly_date);?>		  
-							<div class="wpfc_sermon-meta">
-								<?php echo get_post_meta($post->ID, 'bible_passage', true); ?> <?php echo the_terms( $post->ID, 'wpfc_preacher', '| ', ', ', ' ' ); ?><br/>
-								<?php echo $displayDate; ?> <?php echo the_terms( $post->ID, 'wpfc_sermon_series', '| Series: ', ', ', ' ' ); ?>
-							</div>
-</div>
-<?php
-$buffer = ob_get_clean();
-return $buffer;
-}
-
 
 // Track post views - Added from http://wpsnipp.com/index.php/functions-php/track-post-views-without-a-plugin-using-post-meta/
 function getPostViews($postID){

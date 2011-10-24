@@ -1,15 +1,20 @@
 /* Sermon Manager CSS http://www.wpforchurch.com/plugins/sermon-manager/ */
 
 div.wpfc_sermon-audio {
-padding-top: 10px;
-max-width: 100%;
-padding-bottom: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	max-width: 100%!important;
 }
 
 div.wpfc_sermon-video {
-padding-top: 10px;
-max-width: 100%;
-padding-bottom: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	max-width: 100%;
+}
+
+.wpfc_date {
+	text-transform: uppercase;
+	font-size:.7em;
 }
 
 .single-wpfc_sermon a[href$='.ppt'], .single-wpfc_sermon a[href$='.pptx'] {
@@ -30,6 +35,3 @@ padding-bottom: 10px;
     height: 16px;
 	line-height: 16px;
 }
-
-/* fixes for  Twenty Ten*/
-.single-wpfc_sermon .entry-meta, .single-wpfc_sermon  .entry-summary p, .post-type-archive-wpfc_sermon .entry-utility, .post-type-archive-wpfc_sermon .entry-summary p, .post-type-archive-wpfc_sermon .entry-meta {display: none;}

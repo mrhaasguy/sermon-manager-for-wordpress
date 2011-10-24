@@ -3,8 +3,8 @@ Contributors: wpforchurch
 Donate link: http://wpforchurch.com/
 Tags: church, sermon, sermons, preaching
 Requires at least: 3.0
-Tested up to: 3.3-beta1
-Stable tag: 1.0
+Tested up to: 3.3-beta2
+Stable tag: 1.1
 
 Add audio and video sermons, manage speakers, series, and more to your church website
 
@@ -39,6 +39,10 @@ Visit the [plugin homepage](http://wpforchurch.com/plugins/sermon-manager/ "Serm
 none yet :-)
 
 == Changelog ==
+
+= 1.1 =
+* New much improved templating system! 
+* Bug fixes related to the loading of javascript and CSS
 
 = 1.0 =
 * Fixes related to WordPress 3.3; takes advantage of new tinymce editor
