@@ -38,7 +38,6 @@ get_header(); ?>
 									<script type='text/javascript'>
 									jwplayer('mediaspace').setup({
 									'flashplayer': '<?php echo ''.WPFC_SERMONS . '/js/player.swf'?>',
-									'duration': '33',
 									'file': '<?php echo get_post_meta($post->ID, 'sermon_audio', true); ?>',
 									'controlbar': 'bottom',
 									'width': '400',
