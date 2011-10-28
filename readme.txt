@@ -14,7 +14,7 @@ Sermon Manager is designed to help churches easily publish sermons online. You c
 
 Sermons can have audio files, as well as pdf, doc, ppt, etc adding to them. Video embeds from sites like Vimeo are also possible.
 
-It will with any theme, but themes can be customized to display content as you like. You'll find the template files in the /views folder. You can copy these into the root of your theme folder and customize to suit your site's design. If you need assistance, just post on the forums at WP for Church.
+It will work with any theme, but themes can be customized to display content as you like. You'll find the template files in the /views folder. You can copy these into the root of your theme folder and customize to suit your site's design. If you need assistance, just post on the forums at WP for Church.
 
 Two shortcodes are available to display sermons by speaker or by series.
 
@@ -27,7 +27,7 @@ More information and screenshots are coming soon. You can visit the [plugin's ho
 
 1. Just use the "Add New" button in Plugin section of your WordPress blog's Control panel. To find the plugin there, search for 'Sermon Manager'
 1. Activate the plugin 
-1. Place the shortcode with parameters if needed in your posts or pages
+1. Visit [WP for Church](http://wpforchurch.com/ "WP for Church") for support
 
 == Frequently Asked Questions ==
 
