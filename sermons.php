@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for WordPress
 Plugin URI: http://wpforchurch.com
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 1.1
+Version: 1.1.1
 Author: Jack Lamb
 Author URI: http://wpforchurch.com/
 License: GPL2
@@ -178,7 +178,7 @@ function add_sermon_help_text($contextual_help, $screen_id, $screen) {
       '</ul>' .
       '<p>' . __('If you want to schedule the sermon to be published in the future:') . '</p>' .
       '<ul>' .
-      '<li>' . __('Under the Publish module, click on the Edit link next to Publish.') . '</li>' .
+      '<li>' . __('Under the Publish meta box, click on the Edit link next to Publish.') . '</li>' .
       '<li>' . __('Change the date to the date to actual publish this article, then click on Ok.') . '</li>' .
       '</ul>' .
       '<p><strong>' . __('For more help:') . '</strong></p>' .
@@ -415,13 +415,13 @@ add_filter('template_include', 'sermon_template_include');
 function sermon_template_include($template) {
 		if(get_query_var('post_type') == 'wpfc_sermon') {
 			if ( is_archive() || is_search() ) :
-				if(file_exists(TEMPLATEDIR . '/archive-wpfc_sermon.php'))
-					return TEMPLATEDIR . '/archive-wpfc_sermon.php';
-				return dirname(__FILE__) . '/views/archive-wpfc_sermon.php';
+				if(file_exists(get_stylesheet_directory() . '/archive-wpfc_sermon.php'))
+					return get_stylesheet_directory() . '/archive-wpfc_sermon.php';
+				return plugin_dir_path( __FILE__ ) . '/views/archive-wpfc_sermon.php';
 			else :
-				if(file_exists(TEMPLATEDIR . '/single-wpfc_sermon.php'))
-					return TEMPLATEDIR . '/single-wpfc_sermon.php';
-				return dirname(__FILE__) . '/views/single-wpfc_sermon.php';
+				if(file_exists(get_stylesheet_directory() . '/single-wpfc_sermon.php'))
+					return get_stylesheet_directory() . '/single-wpfc_sermon.php';
+				return plugin_dir_path( __FILE__ ) . '/views/single-wpfc_sermon.php';
 			endif;
 		}
 		return $template;
@@ -431,9 +431,9 @@ function sermon_template_include($template) {
 add_filter('template_include', 'preacher_template_include');
 function preacher_template_include($template) {
 		if(get_query_var('taxonomy') == 'wpfc_preacher') {
-			if(file_exists(TEMPLATEDIR . '/taxonomy-wpfc_preacher.php'))
-				return TEMPLATEDIR . '/taxonomy-wpfc_preacher.php';
-			return dirname(__FILE__) . '/views/taxonomy-wpfc_preacher.php';
+			if(file_exists(get_stylesheet_directory() . '/taxonomy-wpfc_preacher.php')) 
+				return get_stylesheet_directory() . '/taxonomy-wpfc_preacher.php'; 
+			return plugin_dir_path(__FILE__) . '/views/taxonomy-wpfc_preacher.php';	
 		}
 		return $template;
 }
@@ -442,9 +442,9 @@ function preacher_template_include($template) {
 add_filter('template_include', 'series_template_include');
 function series_template_include($template) {
 		if(get_query_var('taxonomy') == 'wpfc_sermon_series') {
-			if(file_exists(TEMPLATEDIR . '/taxonomy-wpfc_sermon_series.php'))
-				return TEMPLATEDIR . '/taxonomy-wpfc_sermon_series.php';
-			return dirname(__FILE__) . '/views/taxonomy-wpfc_sermon_series.php';
+			if(file_exists(get_stylesheet_directory() . '/taxonomy-wpfc_sermon_series.php'))
+				return get_stylesheet_directory() . '/taxonomy-wpfc_sermon_series.php';
+			return plugin_dir_path(__FILE__) . '/views/taxonomy-wpfc_sermon_series.php';
 		}
 		return $template;
 }
@@ -470,8 +470,8 @@ function add_wpfc_js() {
 // Add CSS to entire site. Looks for sermon.css in the main template directory first.
 add_action('wp_head', 'add_wpfc_css');
 function add_wpfc_css() {
-	if(file_exists(TEMPLATEDIR . '/sermon.css'))
-		return TEMPLATEDIR . '/sermon.css';
+	if(file_exists(get_stylesheet_directory() . '/sermon.css'))
+		echo '<link rel="stylesheet" href="'.get_stylesheet_directory() . '/sermon.css'.'" type="text/css" >';
 	echo '<link rel="stylesheet" href="'.WPFC_SERMONS . '/css/style.css'.'" type="text/css" >';
 }
 
