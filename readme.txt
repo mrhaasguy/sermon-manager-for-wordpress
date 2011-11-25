@@ -6,7 +6,7 @@ Requires at least: 3.0
 Tested up to: 3.3-beta3
 Stable tag: 1.1.1
 
-Add audio and video sermons, manage speakers, series, and more to your church website
+Add audio and video sermons, manage speakers, series, and more to your church website.
 
 == Description ==
 
