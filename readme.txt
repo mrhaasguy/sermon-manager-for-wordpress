@@ -3,8 +3,8 @@ Contributors: wpforchurch
 Donate link: http://wpforchurch.com/
 Tags: church, sermon, sermons, preaching
 Requires at least: 3.0
-Tested up to: 3.3-beta2
-Stable tag: 1.1
+Tested up to: 3.3
+Stable tag: 1.1.2
 
 Add audio and video sermons, manage speakers, series, and more to your church website
 
@@ -14,7 +14,7 @@ Sermon Manager is designed to help churches easily publish sermons online. You c
 
 Sermons can have audio files, as well as pdf, doc, ppt, etc adding to them. Video embeds from sites like Vimeo are also possible.
 
-It will work great out of the box with any theme, but themes can be customized to display content as you like. 
+It will work with any theme, but themes can be customized to display content as you like. You'll find the template files in the /views folder. You can copy these into the root of your theme folder and customize to suit your site's design. If you need assistance, just post on the forums at WP for Church.
 
 Two shortcodes are available to display sermons by speaker or by series.
 
@@ -27,11 +27,15 @@ More information and screenshots are coming soon. You can visit the [plugin's ho
 
 1. Just use the "Add New" button in Plugin section of your WordPress blog's Control panel. To find the plugin there, search for 'Sermon Manager'
 1. Activate the plugin 
-1. Place the shortcode with parameters if needed in your posts or pages
+1. Visit [WP for Church](http://wpforchurch.com/ "WP for Church") for support
 
 == Frequently Asked Questions ==
 
-= Questions? =
+= How do I display sermons on the frontend? =
+
+Visit the http://yourdomain.com/sermons if you have permalinks enabled or http://yourdomain.com/?post_type=wpfc_sermon if not.
+
+= More Questions? =
 
 Visit the [plugin homepage](http://wpforchurch.com/plugins/sermon-manager/ "Sermon Manager homepage")
 
@@ -39,6 +43,14 @@ Visit the [plugin homepage](http://wpforchurch.com/plugins/sermon-manager/ "Serm
 none yet :-)
 
 == Changelog ==
+
+= 1.1.2 =
+* bug fixes so everything saved correctly when doing autosave, quick edit, and bulk edit
+* minor CSS fix for icon to display with additional files
+
+= 1.1.1 =
+* bug fixes to templating system
+* minor CSS fixes
 
 = 1.1 =
 * New much improved templating system! 
