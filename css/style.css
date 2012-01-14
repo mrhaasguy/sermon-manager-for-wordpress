@@ -15,6 +15,10 @@ div.wpfc_sermon-video {
 	font-size:.7em;
 }
 
+/* Verse Popup Styles */
+.bibly_popup_outer{font-size:1.4em;}
+.bibly_popup_footer {display:none;}
+
 /*styles for additional files*/
 .single-wpfc_sermon a[href$='.ppt'], .single-wpfc_sermon a[href$='.pptx'] {
 	background:url(icons/ppt.png) no-repeat center left;

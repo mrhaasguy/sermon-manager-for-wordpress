@@ -4,7 +4,7 @@ Donate link: http://wpforchurch.com/
 Tags: church, sermon, sermons, preaching
 Requires at least: 3.0
 Tested up to: 3.3
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 
 Add audio and video sermons, manage speakers, series, and more to your church website
 
@@ -43,6 +43,11 @@ Visit the [plugin homepage](http://wpforchurch.com/plugins/sermon-manager/ "Serm
 none yet :-)
 
 == Changelog ==
+
+= 1.1.3 =
+* Theme developers can add support for sermon manager to their theme with `add_theme_support( 'sermon-manager' );` in functions.php. For now, this will disable the loading of the jwplayer javascript
+* Bug fix to load javascript for sermon player and verse popups on single sermon pages only
+* minor CSS fix to increase font size of popup Bible passages
 
 = 1.1.2 =
 * bug fixes so everything saved correctly when doing autosave, quick edit, and bulk edit

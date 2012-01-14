@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for WordPress
 Plugin URI: http://wpforchurch.com
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 1.1.2
+Version: 1.1.3
 Author: Jack Lamb
 Author URI: http://wpforchurch.com/
 License: GPL2
@@ -459,23 +459,33 @@ function series_template_include($template) {
 		}
 		return $template;
 }
-
+/*
+ * Theme developers can add support for sermon manager to their theme with 
+ * add_theme_support( 'sermon-manager' );
+ * in functions.php. For now, this will disable the loading of the jwplayer javascript
+ */
+ 
 // Add scripts only to single sermon pages
 add_action('wp_head', 'add_wpfc_js');
 function add_wpfc_js() {
-	echo '<script type="text/javascript" src="'.WPFC_SERMONS . '/js/jwplayer.js"></script>';
-	?>
-	<script src="http://code.bib.ly/bibly.min.js"></script>
-	<link href="http://code.bib.ly/bibly.min.css" rel="stylesheet" />
-	<script>
-		// Bible version for all links. Leave blank to let user choose.
-		bibly.linkVersion = 'KJV'; 
-		// Turn off popups
-		bibly.enablePopups = true;
-		// ESV, NET, KJV, or LEB are the currently supported popups.
-		bibly.popupVersion = 'KJV';
-	</script>
+	if (is_single() && 'wpfc_sermon' == get_post_type() ) {
+		if ( ! current_theme_supports( 'sermon-manager' ) ) :
+			echo '<script type="text/javascript" src="'.WPFC_SERMONS . '/js/jwplayer.js"></script>';		
+		endif;
+	}
+	if (is_single() && 'wpfc_sermon' == get_post_type() ) { ?>
+		<script src="http://code.bib.ly/bibly.min.js"></script>
+		<link href="http://code.bib.ly/bibly.min.css" rel="stylesheet" />
+		<script>
+			// Bible version for all links. Leave blank to let user choose.
+			bibly.linkVersion = 'KJV'; 
+			// Turn off popups
+			bibly.enablePopups = true;
+			// ESV, NET, KJV, or LEB are the currently supported popups.
+			bibly.popupVersion = 'KJV';
+		</script>
 	<?php
+	}
 }
 
 // Add CSS to entire site. Looks for sermon.css in the main template directory first.
