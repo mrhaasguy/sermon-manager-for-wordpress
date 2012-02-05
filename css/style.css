@@ -10,6 +10,8 @@ div.wpfc_sermon-video {
 	max-width: 100%;
 }
 
+#wpfc_sermon iframe, #wpfc_sermon object, #wpfc_sermon embed{max-width: 100%;}
+
 .wpfc_date {
 	text-transform: uppercase;
 	font-size:.7em;

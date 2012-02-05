@@ -14,7 +14,7 @@ get_header(); ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
 
-	<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<div id="sermon-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<?php $ugly_date = get_post_meta($post->ID, 'sermon_date', 'true');
 				$displayDate = date('l, F j, Y', $ugly_date);?>
 			<div class="wpfc_date"><?php echo $displayDate; ?> (<?php echo get_post_meta($post->ID, 'service_type', true); ?>)</div>

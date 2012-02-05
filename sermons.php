@@ -326,7 +326,7 @@ function wpfc_sermon_files() {
 	<input type="text" size="100" name="sermon_audio" value="<?php echo $sermon_audio; ?>" />  <a class="thickbox menu-top menu-top-first menu-top-last button" href="media-upload.php?post_id=<?php the_ID(); ?>&TB_iframe=1&width=640&height=324">Upload A New One</a></strong></label></p>
 	<p><label>Paste your video embed code:</label><br />
 	<textarea cols="70" rows="5" name="sermon_video"><?php echo $sermon_video; ?></textarea></p>
-	<p>If you would like to add pdf, doc, ppt, or other file types:<br/></p>
+	<p>If you would like to add pdf, doc, ppt, or other file types upload them here. They'll be listed at the bottom of the sermon page.<br/></p>
     <p><a class="thickbox menu-top menu-top-first menu-top-last button" href="media-upload.php?post_id=<?php the_ID(); ?>&TB_iframe=1&width=640&height=324">Upload Additional Files</a></strong></label></p>
 	<div id="wpfc-attachments">
     <?php
@@ -651,6 +651,23 @@ function wpfc_right_now() {
 }
 
 /**
+ *
+ * Images for Series and Speakers
+ */
+function wpfc_sermon_images() {
+	if ( function_exists( 'add_image_size' ) ) { 
+		add_image_size( 'wpfc_preacher', 300, 9999 ); 
+		add_image_size( 'wpfc_preacher_small', 50, 50, true ); 
+		add_image_size( 'wpfc_series', 940, 9999 ); 
+		add_image_size( 'wpfc_series_small', 50, 50, true ); 
+	}
+}
+add_action("admin_init", "wpfc_sermon_images");
+
+//include the main class file
+require_once("includes/taxonomy-images.php");
+
+/**
  * Recent Sermons Widget
  */
 class WP4C_Recent_Sermons extends WP_Widget {
@@ -683,14 +700,29 @@ class WP4C_Recent_Sermons extends WP_Widget {
 		if ( ! $number = absint( $instance['number'] ) )
  			$number = 10;
 
-		$r = new WP_Query(array('post_type' => 'wpfc_sermon', 'posts_per_page' => $number, 'no_found_rows' => true, 'post_status' => 'publish', 'ignore_sticky_posts' => true));
+		$r = new WP_Query(array(
+				'post_type' => 'wpfc_sermon', 
+				'meta_key' => 'sermon_date',
+                'meta_value' => date("m/d/Y"),
+                'meta_compare' => '>=',
+                'orderby' => 'meta_value',
+                'order' => 'DESC',
+				'posts_per_page' => $number, 
+				'no_found_rows' => true, 
+				'post_status' => 'publish', 
+				'ignore_sticky_posts' => true));
 		if ($r->have_posts()) :
-?>
+		?>
 		<?php echo $before_widget; ?>
 		<?php if ( $title ) echo $before_title . $title . $after_title; ?>
 		<ul>
 		<?php  while ($r->have_posts()) : $r->the_post(); ?>
-		<li><a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a></li>
+		<?php global $post; ?>
+		<li>
+		<a href="<?php the_permalink() ?>" title="<?php echo esc_attr(get_the_title() ? get_the_title() : get_the_ID()); ?>"><?php if ( get_the_title() ) the_title(); else the_ID(); ?></a><br/>
+		<?php $ugly_date = get_post_meta($post->ID, 'sermon_date', 'true');	$displayDate = date('F j, Y', $ugly_date);?>
+		<span class="meta"><?php echo $displayDate; ?></span>
+		</li>
 		<?php endwhile; ?>
 		</ul>
 		<?php echo $after_widget; ?>
