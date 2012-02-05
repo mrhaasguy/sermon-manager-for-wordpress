@@ -40,3 +40,15 @@ div.wpfc_sermon-video {
     height: 16px;
 	line-height: 16px;
 }
+.single-wpfc_sermon a[href$='.mp3'] {
+	background:url(icons/audio.png) no-repeat center left;
+	padding-left:20px;
+    height: 16px;
+	line-height: 16px;
+}
+.single-wpfc_sermon a[href$='.mp4'] {
+	background:url(icons/video.png) no-repeat center left;
+	padding-left:20px;
+    height: 16px;
+	line-height: 16px;
+}

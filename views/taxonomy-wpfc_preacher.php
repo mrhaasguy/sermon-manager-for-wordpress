@@ -24,8 +24,9 @@ $termid = $term->term_id;
 						$attachment_id = $saved_data['id'];
 						$image_attributes = wp_get_attachment_image_src( $attachment_id, 'medium' ); // returns an array
 				?> 
+				<?php if ($saved_data) { ?>
 			    <img src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>">
-				<?php
+				<?php }
 					$category_description = category_description();
 					if ( ! empty( $category_description ) )
 						echo '<div class="archive-meta">' . $category_description . '</div>';

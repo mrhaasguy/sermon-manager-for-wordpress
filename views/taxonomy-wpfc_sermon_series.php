@@ -28,9 +28,10 @@ $termid = $term->term_id;
 						$attachment_id = $saved_data['id'];
 						//wp_get_attachment_image( $attachment_id, 'wpfc_series', '', '' ); 
 						$image_attributes = wp_get_attachment_image_src( $attachment_id, 'wpfc_series' ); // returns an array
-?> 
-<img src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>">
-<?php
+				?> 
+				<?php if ($saved_data) { ?>
+					<img src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>">
+				<?php }
 					
 					/* Series Description */
 					if ('' != $term->description ) {  
