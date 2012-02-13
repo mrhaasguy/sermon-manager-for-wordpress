@@ -3,8 +3,8 @@ Contributors: wpforchurch
 Donate link: http://wpforchurch.com/
 Tags: church, sermon, sermons, preaching
 Requires at least: 3.0
-Tested up to: 3.3
-Stable tag: 1.1.4
+Tested up to: 3.3.1
+Stable tag: 1.2
 
 Add audio and video sermons, manage speakers, series, and more to your church website
 
@@ -16,9 +16,7 @@ Sermons can have audio files, as well as pdf, doc, ppt, etc adding to them. Vide
 
 It will work with any theme, but themes can be customized to display content as you like. You'll find the template files in the /views folder. You can copy these into the root of your theme folder and customize to suit your site's design. If you need assistance, just post on the forums at WP for Church.
 
-Two shortcodes are available to display sermons by speaker or by series.
-You can list sermons by speaker like this: [sermons_speaker name="Dr. Don Sisk" order="ASC"]
-or sermons by series: [sermons_series name="Rooted in Christ" order="DESC"]
+Super flexible shortcode for displaying sermons in page content.
 
 You can visit the [plugin's homepage](http://wpforchurch.com/plugins/sermon-manager/ "Sermon Manager homepage") to get support.
 
@@ -49,6 +47,9 @@ Visit the [plugin homepage](http://wpforchurch.com/plugins/sermon-manager/ "Serm
 none yet :-)
 
 == Changelog ==
+
+= 1.2 =
+* Shortcode completely updated with [documentation](http://www.wpforchurch.com/882/sermon-shortcode/) 
 
 = 1.1.4 =
 * Now you can add images to sermon series and preachers!

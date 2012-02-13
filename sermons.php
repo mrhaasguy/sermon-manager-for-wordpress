@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for WordPress
 Plugin URI: http://wpforchurch.com
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 1.1.4
+Version: 1.2
 Author: Jack Lamb
 Author URI: http://wpforchurch.com/
 License: GPL2
@@ -420,7 +420,16 @@ add_submenu_page('edit.php?post_type=wpfc_sermon', 'Options', 'Options', 'manage
 }
 */
 
-/* Template selection */
+/* 
+ * Shortcodes 
+ * USAGE: http://www.wpforchurch.com/882/sermon-shortcode/
+ */
+require_once plugin_dir_path( __FILE__ ) . '/includes/shortcodes.php';
+
+/* 
+ * Template selection 
+ */
+
 // Include template for displaying sermons by Preacher
 add_filter('template_include', 'sermon_template_include');
 function sermon_template_include($template) {
@@ -520,121 +529,6 @@ function setPostViews($postID) {
     }
 }
 
-// Shortcodes to show speakers or series
-add_shortcode('sermons_speaker', 'getSpeaker');
-add_shortcode('sermons_series', 'getSeries');
-//add_shortcode('sermons', 'getSermons');
-
-/*function getSermons($atts, $content='')
-{
-  global $wpdb, $post;
-
-  $index_query = new WP_Query('post_type=wpfc_sermon&posts_per_page=20&order=ASC');
-
-	while ($index_query->have_posts()){
-    $index_query->the_post();
-    echo '<h3 style="line-height: 1.5em; margin: 10px 0 0 0;">';
-    echo '<a href="'.get_permalink().'">';
-    the_title();
-    echo '</a></h3>';
-    echo get_post_meta(get_the_ID(), 'bible_passage', true);
-    echo ' | ';
-    echo the_terms( $post->ID, 'wpfc_preacher', '', ', ', ' ' );
-  }
-  
-}
-*/
-function getSeries($atts, $content='')
-{
-  global $wpdb, $post;
-  
-  $where = '';
-  $orderby = '';
-  
-  if (isset($atts['name']))
-  {
-    // search by name
-    $where = " and {$wpdb->prefix}terms.name = '".$atts['name']."' ";   
-  }
-  if (isset($atts['order']))
-  {
-    // sort order
-    $orderby = " order by {$wpdb->prefix}posts.post_date ".$atts['order']." ";
-  }
-  
-  $query = get_custom_query('wpfc_sermon_series', $where, $orderby);
-  
-  $myPosts = $wpdb->get_results($query);
-   
-  echo '<ul>';
-  foreach ($myPosts as $value)
-  {
-    $post = get_post($value->object_id);
-    echo '<li><a href="'.get_permalink($post->ID).'">' . $post->post_title . '</a></li>';
-  }
-  echo '</ul>';
-    
-
-}
-
-function getSpeaker($atts, $content='')
-{
-  global $wpdb, $post;
-  
-  $where = '';
-  $orderby = '';
-  
-  if (isset($atts['name']))
-  {
-    // search by name
-    $where = " and {$wpdb->prefix}terms.name = '".$atts['name']."' ";   
-  }
-  if (isset($atts['order']))
-  {
-    // sort order
-    $orderby = " order by {$wpdb->prefix}posts.post_date ".$atts['order']." ";
-  }
-  
-  $query = get_custom_query('wpfc_preacher', $where, $orderby);
-  
-  $myPosts = $wpdb->get_results($query);
-   
-  echo '<ul>';
-  foreach ($myPosts as $value)
-  {
-    // echo 'post-id: ' . $value->object_id . '<br />';
-    $post = get_post($value->object_id);
-    echo '<li><a href="'.get_permalink($post->ID).'">' . $post->post_title . '</a></li>';
-  }
-  echo '</ul>';
-    
-}
-
-function get_custom_query($term, $where, $orderby)
-{
-  global $wpdb;
-
-  // we need a custom query to get all data from the wpfc_preacher taxonomy
-  
-  $query = "select object_id 
-    from {$wpdb->prefix}term_taxonomy, 
-    {$wpdb->prefix}terms,
-    {$wpdb->prefix}term_relationships,
-    {$wpdb->prefix}posts
-    where {$wpdb->prefix}term_taxonomy.term_id = {$wpdb->prefix}terms.term_id
-    and {$wpdb->prefix}term_relationships.term_taxonomy_id = {$wpdb->prefix}term_taxonomy.term_taxonomy_id
-    and {$wpdb->prefix}term_relationships.object_id = {$wpdb->prefix}posts.ID
-    and taxonomy = '".$term."' " ;
-    
-  $query .= $where;
-  
-  $query .= $orderby;    
-    
-   // var_dump($query);
-  
-   return $query;
-}
-
 // Add the number of sermons to the Right Now on the Dashboard
 add_action('right_now_content_table_end', 'wpfc_right_now');
 function wpfc_right_now() {
@@ -651,7 +545,6 @@ function wpfc_right_now() {
 }
 
 /**
- *
  * Images for Series and Speakers
  */
 function wpfc_sermon_images() {
@@ -665,7 +558,7 @@ function wpfc_sermon_images() {
 add_action("admin_init", "wpfc_sermon_images");
 
 //include the main class file
-require_once("includes/taxonomy-images.php");
+require_once plugin_dir_path( __FILE__ ) . 'includes/taxonomy-images.php';
 
 /**
  * Recent Sermons Widget
