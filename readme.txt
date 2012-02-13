@@ -50,6 +50,7 @@ none yet :-)
 
 = 1.2 =
 * Shortcode completely updated with [documentation](http://www.wpforchurch.com/882/sermon-shortcode/) 
+* Drop down sorting by sermon series and preacher added to the archive page
 
 = 1.1.4 =
 * Now you can add images to sermon series and preachers!
@@ -87,6 +88,3 @@ none yet :-)
 
 = 0.6 =
 * initial public release
-
-== Upgrade Notice ==
-Nothing to upgrade yet :-)

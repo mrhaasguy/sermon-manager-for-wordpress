@@ -18,6 +18,30 @@ get_header(); ?>
 			<div id="content" role="main">
 
 			<h1 class="page-title">Sermons</h1>
+			<form action="<?php bloginfo('url'); ?>" method="get">
+			<div> Sort By Series: 
+			<?php
+				$taxonomies = array('wpfc_sermon_series');
+				$args = array('orderby'=>'name','hide_empty'=>true);
+				$select = wpfc_get_series_dropdown($taxonomies, $args);
+
+				$select = preg_replace("#<select([^>]*)>#", "<select$1 onchange='return this.form.submit()'>", $select);
+				echo $select;
+			?>
+			<noscript><div><input type="submit" value="Näytä" /></div></noscript>
+			</div></form>
+			<form action="<?php bloginfo('url'); ?>" method="get">
+			<div> Sort By P: 
+			<?php
+				$taxonomies = array('wpfc_preacher');
+				$args = array('orderby'=>'name','hide_empty'=>true);
+				$select = wpfc_get_preacher_dropdown($taxonomies, $args);
+
+				$select = preg_replace("#<select([^>]*)>#", "<select$1 onchange='return this.form.submit()'>", $select);
+				echo $select;
+			?>
+			<noscript><div><input type="submit" value="Näytä" /></div></noscript>
+			</div></form>
 			<?php
 			// Order sermons by date with the latest sermon first.
 			global $wp_query;

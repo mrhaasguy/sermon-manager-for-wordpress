@@ -659,4 +659,35 @@ class WP4C_Recent_Sermons extends WP_Widget {
 	}
 }
 add_action( 'widgets_init', create_function('', 'return register_widget("WP4C_Recent_Sermons");') );
+
+// Get series for drop down sorting:
+function wpfc_get_series_dropdown($taxonomies, $args){
+	$myterms = get_terms($taxonomies, $args);
+	$output ="<select name='wpfc_sermon_series'>";
+	foreach($myterms as $term){
+		$root_url = get_bloginfo('url');
+		$term_taxonomy=$term->taxonomy;
+		$term_slug=$term->slug;
+		$term_name =$term->name;
+		$link = $term_slug;
+		$output .="<option value='".$link."'>".$term_name."</option>";
+	}
+	$output .="</select>";
+return $output;
+}
+//Get preachers for drop down sorting:
+function wpfc_get_preacher_dropdown($taxonomies, $args){
+	$myterms = get_terms($taxonomies, $args);
+	$output ="<select name='wpfc_preacher'>";
+	foreach($myterms as $term){
+		$root_url = get_bloginfo('url');
+		$term_taxonomy=$term->taxonomy;
+		$term_slug=$term->slug;
+		$term_name =$term->name;
+		$link = $term_slug;
+		$output .="<option value='".$link."'>".$term_name."</option>";
+	}
+	$output .="</select>";
+return $output;
+}
 ?>
