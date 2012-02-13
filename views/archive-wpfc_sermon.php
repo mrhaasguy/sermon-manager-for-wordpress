@@ -31,7 +31,7 @@ get_header(); ?>
 			<noscript><div><input type="submit" value="Näytä" /></div></noscript>
 			</div></form>
 			<form action="<?php bloginfo('url'); ?>" method="get">
-			<div> Sort By P: 
+			<div> Sort By Preacher: 
 			<?php
 				$taxonomies = array('wpfc_preacher');
 				$args = array('orderby'=>'name','hide_empty'=>true);
