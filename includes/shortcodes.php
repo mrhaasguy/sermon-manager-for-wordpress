@@ -1,27 +1,18 @@
 <?php
-/** Modified from: Display Posts Shortcode
- * Plugin URI: http://www.billerickson.net/shortcode-to-display-posts/
+/** 
+ * Sermons Shortcode 
+ *
+ * Requires a plugin for pagination to work: http://wordpress.org/extend/plugins/wp-pagenavi/
+ *
+ * Modified from: Display Posts Shortcode 1.7
+ * http://www.billerickson.net/shortcode-to-display-posts/
  * Description: Display a listing of posts using the [display-posts] shortcode
- * Version: 1.7
- * Author: Bill Erickson
- * Author URI: http://www.billerickson.net
- *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
- * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
- * that you can use any other version of the GPL.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
- * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @package Display Posts
- * @version 1.7
  * @author Bill Erickson <bill@billerickson.net>
  * @copyright Copyright (c) 2011, Bill Erickson
  * @link http://www.billerickson.net/shortcode-to-display-posts/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
- 
 // Create the shortcode
 add_shortcode('sermons', 'wpfc_display_sermons_shortcode');
 function wpfc_display_sermons_shortcode($atts) {
@@ -31,12 +22,24 @@ function wpfc_display_sermons_shortcode($atts) {
 		'id' => false,
 		'posts_per_page' => '10',
 		'order' => 'DESC',
+		'hide_nav' => false,
 		'taxonomy' => false,
 		'tax_term' => false,
 		'tax_operator' => 'IN'
 	), $atts ) );
-	
-	// Set up initial query for post
+	// begin - code from : http://wordpress.org/support/topic/wp-pagenavi-with-custom-query-and-paged-variable?replies=2
+		global $paged;
+		if( get_query_var( 'paged' ) )
+			$my_page = get_query_var( 'paged' );
+		else {
+		if( get_query_var( 'page' ) )
+			$my_page = get_query_var( 'page' );
+		else
+			$my_page = 1;
+		set_query_var( 'paged', $my_page );
+		$paged = $my_page;
+		}
+	// - end
 	$args = array(
 		'post_type' => 'wpfc_sermon',
 		'posts_per_page' => $posts_per_page,
@@ -45,6 +48,7 @@ function wpfc_display_sermons_shortcode($atts) {
         'meta_value' => date("m/d/Y"),
         'meta_compare' => '>=',
         'orderby' => 'meta_value',
+		'paged' => $my_page,
 	);
 	
 	// If Post IDs
@@ -77,16 +81,25 @@ function wpfc_display_sermons_shortcode($atts) {
 	}
 	
 	$listing = new WP_Query( $args, $atts ) ;
+	// Now that you've run the query, finish populating the object
+	?>
+	<div id="wpfc_sermon">	
+	<div id="wpfc_loading">
+	<?php if(function_exists(wp_pagenavi)) : ?>
+	<div id="sermon-navigation"> 
+	<?php wp_pagenavi( array( 'query' => $listing ) ); ?>
+	</div>
+	<?php
+	endif;
 	if ( !$listing->have_posts() )
 		return;
 	$inner = '';
 	while ( $listing->have_posts() ): $listing->the_post(); global $post;
-		
+
 		$ugly_date = get_post_meta($post->ID, 'sermon_date', 'true');
 		$displayDate = date('l, F j, Y', $ugly_date); ?>
 		<div class="wpfc_date"><?php echo $displayDate; ?></div>
 		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'twentyten' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2> 
-		<div id="wpfc_sermon">		  
 			<div class="wpfc_sermon-meta">
 				<?php 
 					if (get_post_meta($post->ID, 'bible_passage', true)) {
@@ -96,21 +109,55 @@ function wpfc_display_sermons_shortcode($atts) {
 					echo the_terms( $post->ID, 'wpfc_sermon_series', '<br />Series: ', ', ', '' ); 
 				?>
 			</div>
-		</div> <br />
-		<?php /* Display navigation to next/previous pages when applicable */ ?>
-		<?php /*if (  $index_query->max_num_pages > 1 ) : ?>
-				<div id="nav-below" class="navigation">
-					<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'thirdstyle' ) ); ?></div>
-					<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'thirdstyle' ) ); ?></div>
-				</div><!-- #nav-below -->
-		<?php endif; */?>
+		<br />
 	<?php
-
-		
-	endwhile; wp_reset_query();
-	
+	endwhile; //end loop
+	if(function_exists(wp_pagenavi)) : ?>
+	<div id="sermon-navigation"> 
+	<?php wp_pagenavi( array( 'query' => $listing ) ); ?>
+	</div>
+	<?php
+	endif;
+	wp_reset_query();
+	?>
+	</div>
+	</div>
+	<?php
 	$return = $inner;
 
 	return $return;
 }
+
+// Create the shortcode to add a sorting form
+/*
+add_shortcode('sermons_sorting', 'wpfc_sermons_sorting_shortcode');
+function wpfc_sermons_sorting_shortcode($atts) {
+global $post;
+?>
+			<div> Sort By Series: 
+			<?php
+				$taxonomies = array('wpfc_sermon_series');
+				$args = array('orderby'=>'name','hide_empty'=>true);
+				$select = wpfc_get_series_dropdown($taxonomies, $args);
+
+				$select = preg_replace("#<select([^>]*)>#", "<select$1 onchange='return this.form.submit()'>", $select);
+				echo $select;
+			?>
+			<noscript><div><input type="submit" value="Näytä" /></div></noscript>
+			</div></form>
+			<form action="<?php bloginfo('url'); ?>" method="get">
+			<div> Sort By Preacher: 
+			<?php
+				$taxonomies = array('wpfc_preacher');
+				$args = array('orderby'=>'name','hide_empty'=>true);
+				$select = wpfc_get_preacher_dropdown($taxonomies, $args);
+
+				$select = preg_replace("#<select([^>]*)>#", "<select$1 onchange='return this.form.submit()'>", $select);
+				echo $select;
+			?>
+			<noscript><div><input type="submit" value="Näytä" /></div></noscript>
+			</div></form>
+<?php
+}
+*/
 ?>

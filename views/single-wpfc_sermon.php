@@ -40,8 +40,9 @@ get_header(); ?>
 									'flashplayer': '<?php echo ''.WPFC_SERMONS . '/js/player.swf'?>',
 									'file': '<?php echo get_post_meta($post->ID, 'sermon_audio', true); ?>',
 									'controlbar': 'bottom',
-									'width': '400',
+									'width': '350',
 									'height': '24'
+									<?php //'skin': '<?php echo ''.WPFC_SERMONS . '/js/bekle.zip'?><?php //'?>
 									});
 									</script>
 								</div>

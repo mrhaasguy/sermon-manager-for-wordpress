@@ -17,8 +17,23 @@ div.wpfc_sermon-video {
 	font-size:.7em;
 }
 
+#sermon-navigation {padding-bottom: 15px;}
+
+/* WP Pagenavi Styles */
+.wp-pagenavi a, .wp-pagenavi span {
+	padding: 5px; margin-right: 10px;
+	font-size: 15px; text-decoration: none;
+	border: 3px solid #ccc; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
+	}
+.wp-pagenavi a:hover, .wp-pagenavi span.current {
+	background: #AFAFAF;
+	color: #fff;
+	border: 3px solid #AFAFAF;
+	}
+.wp-pagenavi span.current { font-weight: bold; }
+
 /* Verse Popup Styles */
-.bibly_popup_outer{font-size:1.4em;}
+.bibly_popup_outer{font-size:1.2em;}
 .bibly_popup_footer {display:none;}
 
 /*styles for additional files*/

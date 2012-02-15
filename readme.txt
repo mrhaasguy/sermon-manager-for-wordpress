@@ -4,7 +4,7 @@ Donate link: http://wpforchurch.com/
 Tags: church, sermon, sermons, preaching
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 Add audio and video sermons, manage speakers, series, and more to your church website
 
@@ -18,6 +18,8 @@ It will work with any theme, but themes can be customized to display content as 
 
 Super flexible shortcode for displaying sermons in page content.
 
+[DEMO](http://demo.wpforchurch.com/sermon-manager/)
+
 You can visit the [plugin's homepage](http://wpforchurch.com/plugins/sermon-manager/ "Sermon Manager homepage") to get support.
 
 [WP for Church](http://wpforchurch.com/ "WP for Church") provides plugins, themes, and training for churches using WordPress.
@@ -27,17 +29,23 @@ You can visit the [plugin's homepage](http://wpforchurch.com/plugins/sermon-mana
 
 1. Just use the "Add New" button in Plugin section of your WordPress blog's Control panel. To find the plugin there, search for 'Sermon Manager'
 1. Activate the plugin 
+1. Add a sermon through the Dashboard
+1. To display the sermons on the frontend of your site, just visit the http://yourdomain.com/sermons if you have permalinks enabled or http://yourdomain.com/?post_type=wpfc_sermon if not. Or you can use the shortcode [sermons] in any page.
 1. Visit [WP for Church](http://wpforchurch.com/ "WP for Church") for support
 
 == Frequently Asked Questions ==
 
 = How do I display sermons on the frontend? =
 
-Visit the http://yourdomain.com/sermons if you have permalinks enabled or http://yourdomain.com/?post_type=wpfc_sermon if not.
+Visit the http://yourdomain.com/sermons if you have permalinks enabled or http://yourdomain.com/?post_type=wpfc_sermon if not. Or you can use the shortcode [sermons] in any page.
 
 = How do I create a menu link? =
 
 Go to Appearance => Menus. In the "Custom Links" box add "http://yourdomain.com/?post_type=wpfc_sermon" as the url and "Sermons" as the label; click "Add to Menu".
+
+= I wish Sermon Manager could... =
+
+I'm open to suggestions to make this a great tool for churches! Submit your feedback at [WP for Church](http://wpforchurch.com/ "WP for Church") 
 
 = More Questions? =
 
@@ -48,12 +56,15 @@ none yet :-)
 
 == Changelog ==
 
+= 1.2.1 =
+* Enhanced shortcode to allow for Ajax pagination
+* Requires a plugin for pagination in shortcode to work: http://wordpress.org/extend/plugins/wp-pagenavi/
+
 = 1.2 =
 * Shortcode completely updated with [documentation](http://www.wpforchurch.com/882/sermon-shortcode/) 
-* Drop down sorting by sermon series and preacher added to the archive page
 
 = 1.1.4 =
-* Now you can add images to sermon series and preachers!
+* Now you can add images to sermon series and preachers! 
 * Widget now includes the sermon date
 * Added icons for audio and video attachments
 
@@ -88,3 +99,6 @@ none yet :-)
 
 = 0.6 =
 * initial public release
+
+== Upgrade Notice ==
+Nothing to upgrade yet :-)

@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for WordPress
 Plugin URI: http://wpforchurch.com
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 1.2
+Version: 1.2.1
 Author: Jack Lamb
 Author URI: http://wpforchurch.com/
 License: GPL2
@@ -479,7 +479,8 @@ add_action('wp_head', 'add_wpfc_js');
 function add_wpfc_js() {
 	if (is_single() && 'wpfc_sermon' == get_post_type() ) {
 		if ( ! current_theme_supports( 'sermon-manager' ) ) :
-			echo '<script type="text/javascript" src="'.WPFC_SERMONS . '/js/jwplayer.js"></script>';		
+			echo '<script type="text/javascript" src="'.WPFC_SERMONS . '/js/jwplayer.js"></script>';	
+			//wp_enqueue_script('jwplayer.js', plugins_url('/js/jwplayer.js', __FILE__));
 		endif;
 	}
 	if (is_single() && 'wpfc_sermon' == get_post_type() ) { ?>
@@ -495,6 +496,16 @@ function add_wpfc_js() {
 		</script>
 	<?php
 	}
+	// Add ajax for pagination if shortcode is present in the content
+	global $wp_query;
+	global $post;
+	if($post) {
+	if (  false !== strpos($post->post_content, '[sermons') ) {	
+		wp_enqueue_script ('jquery');
+		wp_enqueue_script( 'ajax.js', plugins_url('/js/ajax.js', __FILE__) ); 
+		echo '<script type="text/javascript" src="'.WPFC_SERMONS . '/js/jwplayer.js"></script>';	
+		}
+	}	
 }
 
 // Add CSS to entire site. Looks for sermon.css in the main template directory first.
