@@ -4,7 +4,7 @@ Donate link: http://wpforchurch.com/
 Tags: church, sermon, sermons, preaching
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 1.2.1
+Stable tag: 1.3
 
 Add audio and video sermons, manage speakers, series, and more to your church website
 
@@ -55,6 +55,16 @@ Visit the [plugin homepage](http://wpforchurch.com/plugins/sermon-manager/ "Serm
 none yet :-)
 
 == Changelog ==
+
+= 1.3 = 
+* Added a settings page
+* Now translation ready!
+* Added styling to the Recent Sermons Widget
+* Added featured image to individual sermons 
+* Added images to sermon topics 
+* Created new functions to render sermon archive listing and single sermons
+* Added better sorting fields on archive page
+* Added shortcode to insert sort fields - sermon_sort_fields
 
 = 1.2.1 =
 * Enhanced shortcode to allow for Ajax pagination

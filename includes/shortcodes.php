@@ -99,7 +99,7 @@ function wpfc_display_sermons_shortcode($atts) {
 		$ugly_date = get_post_meta($post->ID, 'sermon_date', 'true');
 		$displayDate = date('l, F j, Y', $ugly_date); ?>
 		<div class="wpfc_date"><?php echo $displayDate; ?></div>
-		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'twentyten' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2> 
+		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'sermon-manager' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2> 
 			<div class="wpfc_sermon-meta">
 				<?php 
 					if (get_post_meta($post->ID, 'bible_passage', true)) {
@@ -128,36 +128,9 @@ function wpfc_display_sermons_shortcode($atts) {
 	return $return;
 }
 
-// Create the shortcode to add a sorting form
-/*
-add_shortcode('sermons_sorting', 'wpfc_sermons_sorting_shortcode');
+
+add_shortcode('sermon_sort_fields', 'wpfc_sermons_sorting_shortcode');
 function wpfc_sermons_sorting_shortcode($atts) {
-global $post;
-?>
-			<div> Sort By Series: 
-			<?php
-				$taxonomies = array('wpfc_sermon_series');
-				$args = array('orderby'=>'name','hide_empty'=>true);
-				$select = wpfc_get_series_dropdown($taxonomies, $args);
-
-				$select = preg_replace("#<select([^>]*)>#", "<select$1 onchange='return this.form.submit()'>", $select);
-				echo $select;
-			?>
-			<noscript><div><input type="submit" value="Näytä" /></div></noscript>
-			</div></form>
-			<form action="<?php bloginfo('url'); ?>" method="get">
-			<div> Sort By Preacher: 
-			<?php
-				$taxonomies = array('wpfc_preacher');
-				$args = array('orderby'=>'name','hide_empty'=>true);
-				$select = wpfc_get_preacher_dropdown($taxonomies, $args);
-
-				$select = preg_replace("#<select([^>]*)>#", "<select$1 onchange='return this.form.submit()'>", $select);
-				echo $select;
-			?>
-			<noscript><div><input type="submit" value="Näytä" /></div></noscript>
-			</div></form>
-<?php
+	render_wpfc_sorting();
 }
-*/
 ?>
