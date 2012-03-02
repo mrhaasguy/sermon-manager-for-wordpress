@@ -255,9 +255,9 @@ function customSearchGroup($content)
 // ==================================== End of custom search ===============
 
 //enqueue needed js and styles on sermon edit screen
-add_action('admin_enqueue_scripts', 'admin_script_post');
+add_action('admin_enqueue_scripts', 'wpfc_admin_script_post');
 
-function admin_script_post() {
+function wpfc_admin_script_post() {
 global $post_type;
 	    if( 'wpfc_sermon' != $post_type )
 	        return;
@@ -272,8 +272,6 @@ global $post_type;
 		else :
 		wp_tiny_mce( TRUE, Array( "editor_selector" => "wysiwyg" ) );
 		endif;
-		//wp_enqueue_script('admin', $this->plugin_url . 'js/admin.js', array('jquery'), $this->version);
-		//wp_enqueue_script('admin');
 }
 
 //Create custom fields and write panels for the Sermon post type
