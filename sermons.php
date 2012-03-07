@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for WordPress
 Plugin URI: http://wpforchurch.com
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 1.3
+Version: 1.3.1
 Author: Jack Lamb
 Author URI: http://wpforchurch.com/
 License: GPL2
@@ -255,9 +255,9 @@ function customSearchGroup($content)
 // ==================================== End of custom search ===============
 
 //enqueue needed js and styles on sermon edit screen
-add_action('admin_enqueue_scripts', 'wpfc_admin_script_post');
+add_action('admin_enqueue_scripts', 'admin_script_post');
 
-function wpfc_admin_script_post() {
+function admin_script_post() {
 global $post_type;
 	    if( 'wpfc_sermon' != $post_type )
 	        return;
@@ -272,6 +272,8 @@ global $post_type;
 		else :
 		wp_tiny_mce( TRUE, Array( "editor_selector" => "wysiwyg" ) );
 		endif;
+		//wp_enqueue_script('admin', $this->plugin_url . 'js/admin.js', array('jquery'), $this->version);
+		//wp_enqueue_script('admin');
 }
 
 //Create custom fields and write panels for the Sermon post type
@@ -307,12 +309,12 @@ wp_nonce_field( plugin_basename( __FILE__ ), 'sermons_nounce' );
 	<input type="text" name="sermon_date" id="sermon_date" value="<?php echo $displayDate ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<label><?php _e('Service Type:', 'sermon-manager'); ?></label> 
 		<select id="service_type" name="service_type">
-			<option value="<?php _e('Adult Bible Class', 'sermon-manager'); ?>"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "_e('Adult Bible Class', 'sermon-manager')") : ?> selected="true"<?php endif; ?>><?php _e('Adult Bible Class', 'sermon-manager'); ?></option>
-			<option value="<?php _e('Sunday AM', 'sermon-manager'); ?>"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "_e('Sunday AM', 'sermon-manager')") : ?> selected="true"<?php endif; ?>><?php _e('Sunday AM', 'sermon-manager'); ?></option>
-			<option value="<?php _e('Sunday PM', 'sermon-manager'); ?>"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "_e('Sunday PM, 'sermon-manager')") : ?> selected="true"<?php endif; ?>><?php _e('Sunday PM', 'sermon-manager'); ?></option>
-			<option value="<?php _e('Midweek Service', 'sermon-manager'); ?>"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "_e('Midweek Service', 'sermon-manager')") : ?> selected="true"<?php endif; ?>><?php _e('Midweek Service', 'sermon-manager'); ?></option>
-			<option value="<?php _e('Special Service', 'sermon-manager'); ?>"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "_e('Special Service', 'sermon-manager')") : ?> selected="true"<?php endif; ?>><?php _e('Special Service', 'sermon-manager'); ?></option>
-			<option value="<?php _e('Radio Broadcast', 'sermon-manager'); ?>"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "_e('Radio Broadcast', 'sermon-manager')") : ?> selected="true"<?php endif; ?>><?php _e('Radio Broadcast', 'sermon-manager'); ?></option>
+			<option value="Adult Bible Class"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "Adult Bible Class") : ?> selected="true"<?php endif; ?>>Adult Bible Class</option>
+			<option value="Sunday AM"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "Sunday AM") : ?> selected="true"<?php endif; ?>>Sunday AM</option>
+			<option value="Sunday PM"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "Sunday PM") : ?> selected="true"<?php endif; ?>>Sunday PM</option>
+			<option value="Midweek Service"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "Midweek Service'") : ?> selected="true"<?php endif; ?>>Midweek Service</option>
+			<option value="Special Service"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "Special Service'") : ?> selected="true"<?php endif; ?>>Special Service</option>
+			<option value="Radio Broadcast"<?php if ((get_post_meta($post->ID, 'service_type', true)) == "Radio Broadcast") : ?> selected="true"<?php endif; ?>>Radio Broadcast</option>
 		</select>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label><?php _e('Main Bible Passage:', 'sermon-manager'); ?></label> 
