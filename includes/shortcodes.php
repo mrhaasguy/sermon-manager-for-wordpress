@@ -82,7 +82,7 @@ function wpfc_display_sermons_shortcode($atts) {
 	
 	$listing = new WP_Query( $args, $atts ) ;
 	// Now that you've run the query, finish populating the object
-	?>
+	ob_start(); ?>
 	<div id="wpfc_sermon">	
 	<div id="wpfc_loading">
 	<?php if(function_exists(wp_pagenavi)) : ?>
@@ -93,7 +93,6 @@ function wpfc_display_sermons_shortcode($atts) {
 	endif;
 	if ( !$listing->have_posts() )
 		return;
-	$inner = '';
 	while ( $listing->have_posts() ): $listing->the_post(); global $post;
 
 		$ugly_date = get_post_meta($post->ID, 'sermon_date', 'true');
@@ -123,9 +122,8 @@ function wpfc_display_sermons_shortcode($atts) {
 	</div>
 	</div>
 	<?php
-	$return = $inner;
-
-	return $return;
+	$buffer = ob_get_clean();
+	return $buffer;
 }
 
 
