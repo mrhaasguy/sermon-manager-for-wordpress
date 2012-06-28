@@ -3,8 +3,8 @@ Contributors: wpforchurch
 Donate link: http://wpforchurch.com/
 Tags: church, sermon, sermons, preaching
 Requires at least: 3.0
-Tested up to: 3.3.1
-Stable tag: 1.3.1
+Tested up to: 3.4.1
+Stable tag: 1.3.3
 
 Add audio and video sermons, manage speakers, series, and more to your church website
 
@@ -17,6 +17,11 @@ Sermons can have audio files, as well as pdf, doc, ppt, etc adding to them. Vide
 It will work with any theme, but themes can be customized to display content as you like. You'll find the template files in the /views folder. You can copy these into the root of your theme folder and customize to suit your site's design. If you need assistance, just post on the forums at WP for Church.
 
 Super flexible shortcode for displaying sermons in page content.
+
+Coming This Summer:
+* Rewrite of plugin
+* Better templating
+* iTunes podcasting support
 
 [DEMO](http://demo.wpforchurch.com/sermon-manager/)
 
@@ -55,6 +60,10 @@ Visit the [plugin homepage](http://wpforchurch.com/plugins/sermon-manager/ "Serm
 none yet :-)
 
 == Changelog ==
+
+
+= 1.3.3 =
+* Bug fix with menu not showing in some themes 
 
 = 1.3.1 =
 * Bug fix with Service Type not saving correctly 
@@ -112,6 +121,3 @@ none yet :-)
 
 = 0.6 =
 * initial public release
-
-== Upgrade Notice ==
-Nothing to upgrade yet :-)
