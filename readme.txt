@@ -61,7 +61,7 @@ I'm open to suggestions to make this a great tool for churches! Submit your feed
 
 = More Questions? =
 
-Visit the [plugin homepage](http://wpforchurch.com/plugins/sermon-manager/ "Sermon Manager homepage")
+Visit the [plugin homepage](http://www.wpforchurch.com/products/sermon-manager-for-wordpress/ "Sermon Manager homepage")
 
 == Screenshots ==
 1. Sermon Details
