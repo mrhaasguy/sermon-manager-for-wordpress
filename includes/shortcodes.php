@@ -1,17 +1,54 @@
 <?php
 /** 
- * Sermons Shortcode 
+ * Sermons Shortcodes 
  *
  * Requires a plugin for pagination to work: http://wordpress.org/extend/plugins/wp-pagenavi/
  *
- * Modified from: Display Posts Shortcode 1.7
- * http://www.billerickson.net/shortcode-to-display-posts/
- * Description: Display a listing of posts using the [display-posts] shortcode
- * @author Bill Erickson <bill@billerickson.net>
- * @copyright Copyright (c) 2011, Bill Erickson
- * @link http://www.billerickson.net/shortcode-to-display-posts/
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+ 
+// List all series or speakers in a simple unordered list
+add_shortcode('list-sermons', 'wpfc_list_sermons_shortcode');
+function wpfc_list_sermons_shortcode( $atts = array () ){
+	extract( shortcode_atts( array(
+		'tax' => 'wpfc_sermon_series', // options: wpfc_sermon_series, wpfc_preacher, wpfc_sermon_topics, wpfc_bible_book
+		'order' => 'ASC', // options: DESC
+		'orderby' => 'name', // options: id, count, name, slug, term_group, none
+	), $atts ) );
+	
+	$terms = get_terms($tax);
+ $count = count($terms);
+ if ( $count > 0 ){
+     $list = '<ul id="list-sermons">';
+     foreach ( $terms as $term ) {
+       $list .= '<li><a href="' . esc_url( get_term_link( $term, $term->taxonomy ) ) . '" title="' . $term->name . '">' . $term->name . '</a></li>';
+     }
+     $list .= '</ul>';
+	 return $list;
+ }
+}
+ 
+// Display all series or speakers in a grid of images
+add_shortcode('sermon-images', 'wpfc_display_images_shortcode');
+function wpfc_display_images_shortcode( $atts = array () ) {
+	extract( shortcode_atts( array(
+		'tax' => 'wpfc_sermon_series', // options: wpfc_sermon_series, wpfc_preacher, wpfc_sermon_topics
+		'order' => 'ASC', // options: DESC
+		'orderby' => 'name', // options: id, count, name, slug, term_group, none
+		'size' => 'sermon_medium' // options: any size registered with add_image_size
+	), $atts ) );
+		
+		$terms = apply_filters( 'sermon-images-get-terms', '', array('taxonomy' => $tax, 'order' => $order, 'orderby' => 'name' ) );
+		if ( ! empty( $terms ) ) { 
+			$list = '<ul id="wpfc_images_grid">'; foreach( (array) $terms as $term ) { 
+				$list .= '<li class="wpfc_grid_image">';
+				$list .= '<a href="' . esc_url( get_term_link( $term, $term->taxonomy ) ) . '">' . wp_get_attachment_image( $term->image_id, $size ) . '</a>';
+				$list .= '<h3 class="wpfc_grid_title"><a href="' . esc_url( get_term_link( $term, $term->taxonomy ) ) . '">' . $term->name . '</a></h3>';
+				$list .= '</li>'; 
+			} 
+			$list .= '</ul>'; 
+		}
+	return $list;
+}
 
 // Create the shortcode
 add_shortcode('sermons', 'wpfc_display_sermons_shortcode');
@@ -25,6 +62,7 @@ function wpfc_display_sermons_shortcode($atts) {
 		'hide_nav' => false,
 		'taxonomy' => false,
 		'tax_term' => false,
+		'image_size' => 'sermon_small',
 		'tax_operator' => 'IN'
 	), $atts ) );
 	// begin - code from : http://wordpress.org/support/topic/wp-pagenavi-with-custom-query-and-paged-variable?replies=2
@@ -85,36 +123,20 @@ function wpfc_display_sermons_shortcode($atts) {
 	ob_start(); ?>
 	<div id="wpfc_sermon">	
 	<div id="wpfc_loading">
-	<?php if(function_exists(wp_pagenavi)) : ?>
-	<div id="sermon-navigation"> 
-	<?php wp_pagenavi( array( 'query' => $listing ) ); ?>
-	</div>
 	<?php
-	endif;
 	if ( !$listing->have_posts() )
 		return;
-	while ( $listing->have_posts() ): $listing->the_post(); global $post;
-
-		$ugly_date = get_post_meta($post->ID, 'sermon_date', 'true');
-		$displayDate = date('l, F j, Y', $ugly_date); ?>
-		<div class="wpfc_date"><?php echo $displayDate; ?></div>
-		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'sermon-manager' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2> 
-			<div class="wpfc_sermon-meta">
-				<?php 
-					if (get_post_meta($post->ID, 'bible_passage', true)) {
-					echo get_post_meta($post->ID, 'bible_passage', true); ?> |								
-				<?php } 
-					echo the_terms( $post->ID, 'wpfc_preacher', '', ', ', ' ' ); 
-					echo the_terms( $post->ID, 'wpfc_sermon_series', '<br />Series: ', ', ', '' ); 
-				?>
-			</div>
-		<br />
+	while ( $listing->have_posts() ): $listing->the_post(); global $post; ?>
+	<div id="wpfc_sermon_wrap">
+		<h3 class="sermon-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'sermon-manager' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h3> 
+		<?php render_wpfc_sermon_excerpt(); ?>
+	</div>
 	<?php
 	endwhile; //end loop
 	if(function_exists(wp_pagenavi)) : ?>
-	<div id="sermon-navigation"> 
-	<?php wp_pagenavi( array( 'query' => $listing ) ); ?>
-	</div>
+		<div id="sermon-navigation"> 
+			<?php wp_pagenavi( array( 'query' => $listing ) ); ?>
+		</div>
 	<?php
 	endif;
 	wp_reset_query();
