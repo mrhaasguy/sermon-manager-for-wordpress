@@ -26,7 +26,7 @@ Display a list of sermon series, preachers, sermon topics, or book of the Bible 
 
 iTunes podcasting support is now available!
 
-=== Available Addons ===
+= Available Addons =
 * [Import MP3 to Sermon Manager](http://www.wpforchurch.com/product/import-mp3-to-sermon-manager/)
 * Import from Sermon Browser to Sermon Manager is coming soon! Sign up for the [newsletter](http://www.wpforchurch.com/newsletter/) to make sure you don't miss the announcement!
 
