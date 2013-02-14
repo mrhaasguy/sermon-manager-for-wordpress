@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for WordPress
 Plugin URI: http://www.wpforchurch.com/products/sermon-manager-for-wordpress/
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 1.5.6
+Version: 1.6
 Author: Jack Lamb
 Author URI: http://www.wpforchurch.com/
 License: GPL2
@@ -36,18 +36,18 @@ function create_wpfc_sermon_types()
 {
   $plugin = WPFC_SERMONS;
   $labels = array(
-    'name' => __( 'Sermons', 'sermon-manager'),
-    'singular_name' => __( 'Sermon', 'sermon-manager'),
-    'add_new' => __( 'Add New', 'sermon-manager'),
-    'add_new_item' => __('Add New Sermon', 'sermon-manager'),
-    'edit_item' => __('Edit Sermon', 'sermon-manager'),
-    'new_item' => __('New Sermon', 'sermon-manager'),
-    'view_item' => __('View Sermon', 'sermon-manager'),
-    'search_items' => __('Search Sermons', 'sermon-manager'),
-    'not_found' =>  __('No sermons found', 'sermon-manager'),
-    'not_found_in_trash' => __('No sermons found in Trash', 'sermon-manager'), 
+    'name' => _x( 'Sermons', 'sermon-manager'),
+    'singular_name' => _x( 'Sermon', 'sermon-manager'),
+    'add_new' => _x( 'Add New', 'sermon-manager'),
+    'add_new_item' => _x('Add New Sermon', 'sermon-manager'),
+    'edit_item' => _x('Edit Sermon', 'sermon-manager'),
+    'new_item' => _x('New Sermon', 'sermon-manager'),
+    'view_item' => _x('View Sermon', 'sermon-manager'),
+    'search_items' => _x('Search Sermons', 'sermon-manager'),
+    'not_found' =>  _x('No sermons found', 'sermon-manager'),
+    'not_found_in_trash' => _x('No sermons found in Trash', 'sermon-manager'), 
     'parent_item_colon' => '',
-    'menu_name' => __( 'Sermons', 'sermon-manager'),
+    'menu_name' => _x( 'Sermons', 'sermon-manager'),
   );
 
     $sermon_settings = get_option('wpfc_options');
@@ -80,19 +80,19 @@ function create_wpfc_sermon_taxonomies()
 
 //Preachers
 $labels = array(	
-	'name' => __( 'Preachers', 'sermon-manager'),
-	'singular_name' => __( 'Preacher', 'sermon-manager' ),
-	'menu_name' => __( 'Preachers', 'sermon-manager' ),
-	'search_items' => __( 'Search preachers', 'sermon-manager' ), 
-	'popular_items' => __( 'Most frequent preachers', 'sermon-manager' ), 
-	'all_items' => __( 'All preachers', 'sermon-manager' ),
-	'edit_item' => __( 'Edit preachers', 'sermon-manager' ),
-	'update_item' => __( 'Update preachers', 'sermon-manager' ), 
-	'add_new_item' => __( 'Add new preacher', 'sermon-manager' ),
-	'new_item_name' => __( 'New preacher name', 'sermon-manager' ), 
-	'separate_items_with_commas' => __( 'Separate multiple preachers with commas', 'sermon-manager' ),
-	'add_or_remove_items' => __( 'Add or remove preachers', 'sermon-manager' ),
-	'choose_from_most_used' => __( 'Choose from most frequent preachers', 'sermon-manager' ),
+	'name' => _x( 'Preachers', 'sermon-manager'),
+	'singular_name' => _x( 'Preacher', 'sermon-manager' ),
+	'menu_name' => _x( 'Preachers', 'sermon-manager' ),
+	'search_items' => _x( 'Search preachers', 'sermon-manager' ), 
+	'popular_items' => _x( 'Most frequent preachers', 'sermon-manager' ), 
+	'all_items' => _x( 'All preachers', 'sermon-manager' ),
+	'edit_item' => _x( 'Edit preachers', 'sermon-manager' ),
+	'update_item' => _x( 'Update preachers', 'sermon-manager' ), 
+	'add_new_item' => _x( 'Add new preacher', 'sermon-manager' ),
+	'new_item_name' => _x( 'New preacher name', 'sermon-manager' ), 
+	'separate_items_with_commas' => _x( 'Separate multiple preachers with commas', 'sermon-manager' ),
+	'add_or_remove_items' => _x( 'Add or remove preachers', 'sermon-manager' ),
+	'choose_from_most_used' => _x( 'Choose from most frequent preachers', 'sermon-manager' ),
 	'parent_item' => null,
     'parent_item_colon' => null,
 );
@@ -107,20 +107,20 @@ register_taxonomy('wpfc_preacher','wpfc_sermon', array(
 
 //Sermon Series
 $labels = array(	
-	'name' => __( 'Sermon Series', 'sermon-manager'),
+	'name' => _x( 'Sermon Series', 'sermon-manager'),
 	'graphic' => '',
-	'singular_name' => __( 'Sermon Series', 'sermon-manager'),
-	'menu_name' => __( 'Sermon Series', 'sermon-manager' ),
-	'search_items' => __( 'Search sermon series', 'sermon-manager' ), 
-	'popular_items' => __( 'Most frequent sermon series', 'sermon-manager' ), 
-	'all_items' => __( 'All sermon series', 'sermon-manager' ),
-	'edit_item' => __( 'Edit sermon series', 'sermon-manager' ),
-	'update_item' => __( 'Update sermon series', 'sermon-manager' ), 
-	'add_new_item' => __( 'Add new sermon series', 'sermon-manager' ),
-	'new_item_name' => __( 'New sermon series name', 'sermon-manager' ), 
-	'separate_items_with_commas' => __( 'Separate sermon series with commas', 'sermon-manager' ),
-	'add_or_remove_items' => __( 'Add or remove sermon series', 'sermon-manager' ),
-	'choose_from_most_used' => __( 'Choose from most used sermon series', 'sermon-manager' ),
+	'singular_name' => _x( 'Sermon Series', 'sermon-manager'),
+	'menu_name' => _x( 'Sermon Series', 'sermon-manager' ),
+	'search_items' => _x( 'Search sermon series', 'sermon-manager' ), 
+	'popular_items' => _x( 'Most frequent sermon series', 'sermon-manager' ), 
+	'all_items' => _x( 'All sermon series', 'sermon-manager' ),
+	'edit_item' => _x( 'Edit sermon series', 'sermon-manager' ),
+	'update_item' => _x( 'Update sermon series', 'sermon-manager' ), 
+	'add_new_item' => _x( 'Add new sermon series', 'sermon-manager' ),
+	'new_item_name' => _x( 'New sermon series name', 'sermon-manager' ), 
+	'separate_items_with_commas' => _x( 'Separate sermon series with commas', 'sermon-manager' ),
+	'add_or_remove_items' => _x( 'Add or remove sermon series', 'sermon-manager' ),
+	'choose_from_most_used' => _x( 'Choose from most used sermon series', 'sermon-manager' ),
 	'parent_item' => null,
     'parent_item_colon' => null,
 );
@@ -135,19 +135,19 @@ register_taxonomy('wpfc_sermon_series','wpfc_sermon', array(
 
 //Sermon Topics
 $labels = array(	
-	'name' => __( 'Sermon Topics', 'sermon-manager'),
-	'singular_name' => __( 'Sermon Topics', 'sermon-manager'),
-	'menu_name' => __( 'Sermon Topics', 'sermon-manager' ),
-	'search_items' => __( 'Search sermon topics', 'sermon-manager' ), 
-	'popular_items' => __( 'Most popular sermon topics', 'sermon-manager' ), 
-	'all_items' => __( 'All sermon topics', 'sermon-manager' ),
-	'edit_item' => __( 'Edit sermon topic', 'sermon-manager' ),
-	'update_item' => __( 'Update sermon topic', 'sermon-manager' ), 
-	'add_new_item' => __( 'Add new sermon topic', 'sermon-manager' ),
-	'new_item_name' => __( 'New sermon topic', 'sermon-manager' ), 
-	'separate_items_with_commas' => __( 'Separate sermon topics with commas', 'sermon-manager' ),
-	'add_or_remove_items' => __( 'Add or remove sermon topics', 'sermon-manager' ),
-	'choose_from_most_used' => __( 'Choose from most used sermon topics', 'sermon-manager' ),
+	'name' => _x( 'Sermon Topics', 'sermon-manager'),
+	'singular_name' => _x( 'Sermon Topics', 'sermon-manager'),
+	'menu_name' => _x( 'Sermon Topics', 'sermon-manager' ),
+	'search_items' => _x( 'Search sermon topics', 'sermon-manager' ), 
+	'popular_items' => _x( 'Most popular sermon topics', 'sermon-manager' ), 
+	'all_items' => _x( 'All sermon topics', 'sermon-manager' ),
+	'edit_item' => _x( 'Edit sermon topic', 'sermon-manager' ),
+	'update_item' => _x( 'Update sermon topic', 'sermon-manager' ), 
+	'add_new_item' => _x( 'Add new sermon topic', 'sermon-manager' ),
+	'new_item_name' => _x( 'New sermon topic', 'sermon-manager' ), 
+	'separate_items_with_commas' => _x( 'Separate sermon topics with commas', 'sermon-manager' ),
+	'add_or_remove_items' => _x( 'Add or remove sermon topics', 'sermon-manager' ),
+	'choose_from_most_used' => _x( 'Choose from most used sermon topics', 'sermon-manager' ),
 	'parent_item' => null,
     'parent_item_colon' => null,
 );
@@ -162,19 +162,19 @@ register_taxonomy('wpfc_sermon_topics','wpfc_sermon', array(
 
 //Books of the Bible
 $labels = array(	
-	'name' => __( 'Book of the Bible', 'sermon-manager'),
-	'singular_name' => __( 'Book of the Bible', 'sermon-manager'),
-	'menu_name' => __( 'Book of the Bible', 'sermon-manager' ),
-	'search_items' => __( 'Search books of the Bible', 'sermon-manager' ), 
-	'popular_items' => __( 'Most popular books of the Bible', 'sermon-manager' ), 
-	'all_items' => __( 'All books of the Bible', 'sermon-manager' ),
-	'edit_item' => __( 'Edit book of the Bible', 'sermon-manager' ),
-	'update_item' => __( 'Update book of the Bible', 'sermon-manager' ), 
-	'add_new_item' => __( 'Add new books of the Bible', 'sermon-manager' ),
-	'new_item_name' => __( 'New book of the Bible', 'sermon-manager' ), 
-	'separate_items_with_commas' => __( 'Separate books of the Bible with commas', 'sermon-manager' ),
-	'add_or_remove_items' => __( 'Add or remove books of the Bible', 'sermon-manager' ),
-	'choose_from_most_used' => __( 'Choose from most used books of the Bible', 'sermon-manager' ),
+	'name' => _x( 'Book of the Bible', 'sermon-manager'),
+	'singular_name' => _x( 'Book of the Bible', 'sermon-manager'),
+	'menu_name' => _x( 'Book of the Bible', 'sermon-manager' ),
+	'search_items' => _x( 'Search books of the Bible', 'sermon-manager' ), 
+	'popular_items' => _x( 'Most popular books of the Bible', 'sermon-manager' ), 
+	'all_items' => _x( 'All books of the Bible', 'sermon-manager' ),
+	'edit_item' => _x( 'Edit book of the Bible', 'sermon-manager' ),
+	'update_item' => _x( 'Update book of the Bible', 'sermon-manager' ), 
+	'add_new_item' => _x( 'Add new books of the Bible', 'sermon-manager' ),
+	'new_item_name' => _x( 'New book of the Bible', 'sermon-manager' ), 
+	'separate_items_with_commas' => _x( 'Separate books of the Bible with commas', 'sermon-manager' ),
+	'add_or_remove_items' => _x( 'Add or remove books of the Bible', 'sermon-manager' ),
+	'choose_from_most_used' => _x( 'Choose from most used books of the Bible', 'sermon-manager' ),
 	'parent_item' => null,
     'parent_item_colon' => null,
 );
@@ -186,7 +186,42 @@ register_taxonomy('wpfc_bible_book','wpfc_sermon', array(
 	'query_var' => true,
     'rewrite' => array ( 'slug' => 'book' ),
 ));
+
+//Service Type
+$labels = array(	
+	'name' => _x( 'Service Type', 'sermon-manager'),
+	'singular_name' => _x( 'Service Type', 'sermon-manager'),
+	'menu_name' => _x( 'Service Type', 'sermon-manager' ),
+	'search_items' => _x( 'Search service types', 'sermon-manager' ), 
+	'popular_items' => _x( 'Most popular service types', 'sermon-manager' ), 
+	'all_items' => _x( 'All service types', 'sermon-manager' ),
+	'edit_item' => _x( 'Edit service type', 'sermon-manager' ),
+	'update_item' => _x( 'Update service type', 'sermon-manager' ), 
+	'add_new_item' => _x( 'Add new service types', 'sermon-manager' ),
+	'new_item_name' => _x( 'New Service Type', 'sermon-manager' ), 
+	'separate_items_with_commas' => _x( 'Separate service types with commas', 'sermon-manager' ),
+	'add_or_remove_items' => _x( 'Add or remove service types', 'sermon-manager' ),
+	'choose_from_most_used' => _x( 'Choose from most used service types', 'sermon-manager' ),
+	'parent_item' => null,
+    'parent_item_colon' => null,
+);
+
+register_taxonomy('wpfc_service_type','wpfc_sermon', array(
+	'hierarchical' => false, 
+	'labels' => $labels, 
+	'show_ui' => true,
+	'query_var' => true,
+    'rewrite' => array ( 'slug' => 'service-type' ),
+));
 }
+
+//Remove service type box (since we already have a method for selecting it)
+function remove_service_type_taxonomy() {
+	$custom_taxonomy_slug = 'wpfc_service_type';
+	$custom_post_type = 'wpfc_sermon';
+	remove_meta_box('tagsdiv-wpfc_service_type', 'wpfc_sermon', 'side' );
+}
+add_action( 'admin_menu', 'remove_service_type_taxonomy' );
 
 //add filter to insure the text Sermon, or sermon, is displayed when user updates a sermon
 add_filter('post_updated_messages', 'wpfc_sermon_updated_messages');
@@ -301,10 +336,10 @@ function wpfc_sermon_metaboxes( array $meta_boxes ) {
 			),
 			array(
 				'name'    => __('Service Type', 'sermon-manager'),
-				'desc'    => __('Select the type of service.', 'sermon-manager'),
-				'id'      => 'service_type',
-				'type'    => 'select',
-				'options' => $service_types
+				'desc'    => __('Select the type of service. Modify service types in Sermons -> Service Types.', 'sermon-manager'),
+				'id'      => 'wpfc_service_type_select',
+				'type'    => 'taxonomy_select',
+				'taxonomy' => 'wpfc_service_type',
 			),
 			array(
 				'name' => __('Main Bible Passage', 'sermon-manager'),
@@ -624,7 +659,7 @@ class WP4C_Recent_Sermons extends WP_Widget {
 			<?php echo $preacher; ?>, 
 
 			<?php endif; 
-			wpfc_sermon_date('l, F j, Y'); 
+			wpfc_sermon_date(get_option('date_format')); 
 			?>
 		</span>
 		</li>
@@ -691,7 +726,7 @@ function wpfc_get_term_dropdown($taxonomy) {
 
 // Make all queries for sermons order by the sermon date
 function wpfc_sermon_order_query( $query ) {
-	if ( isset($query->query_vars['post_type']) != 'nav_menu_item' ) :
+	if ( $query->is_main_query() ) :
 	if( is_post_type_archive('wpfc_sermon') || is_tax( 'wpfc_preacher' ) || is_tax( 'wpfc_sermon_topics' ) || is_tax( 'wpfc_sermon_series' ) || is_tax( 'wpfc_bible_book' ) ) {
 		$query->set('meta_key', 'sermon_date');
 		$query->set('meta_value', date("m/d/Y"));
@@ -714,8 +749,9 @@ function render_wpfc_sermon_archive() {
 		<div class="wpfc_sermon_meta cf">
 			<p>	
 				<?php 
-					wpfc_sermon_date('l, F j, Y', '<span class="sermon_date">', '</span> '); wpfc_sermon_meta('service_type', ' <span class="service_type">(', ')</span> ');
+					wpfc_sermon_date(get_option('date_format'), '<span class="sermon_date">', '</span> '); echo the_terms( $post->ID, 'wpfc_service_type',  ' <span class="service_type">(', ' ', ')</span>');
 			?></p><p><?php
+
 					wpfc_sermon_meta('bible_passage', '<span class="bible_passage">Bible Text: ', '</span> | ');
 					echo the_terms( $post->ID, 'wpfc_preacher',  '<span class="preacher_name">', ' ', '</span>');
 					echo the_terms( $post->ID, 'wpfc_sermon_series', '<p><span class="sermon_series">Series: ', ' ', '</span></p>' ); 
@@ -797,7 +833,7 @@ function wpfc_sermon_description( $before = '', $after = '' ) {
 function wpfc_sermon_date( $args, $before = '', $after = '' ) {
 	global $post;
 	$ugly_date = get_post_meta($post->ID, 'sermon_date', 'true');
-	$date = date($args, $ugly_date);
+	$date = date_i18n($args, $ugly_date);
 		echo $before .$date. $after;
 }
 
@@ -908,7 +944,7 @@ function render_wpfc_sermon_single() {
 		<div class="wpfc_sermon_meta cf">
 			<p>	
 				<?php 
-					wpfc_sermon_date('l, F j, Y', '<span class="sermon_date">', '</span> '); wpfc_sermon_meta('service_type', ' <span class="service_type">(', ')</span> ');
+					wpfc_sermon_date(get_option('date_format'), '<span class="sermon_date">', '</span> '); echo the_terms( $post->ID, 'wpfc_service_type',  ' <span class="service_type">(', ' ', ')</span>');
 			?></p><p><?php
 					wpfc_sermon_meta('bible_passage', '<span class="bible_passage">Bible Text: ', '</span> | ');
 					echo the_terms( $post->ID, 'wpfc_preacher',  '<span class="preacher_name">', ', ', '</span>');
@@ -940,7 +976,7 @@ function render_wpfc_sermon_excerpt() {
 		<div class="wpfc_sermon_meta cf">
 			<p>	
 				<?php 
-					wpfc_sermon_date('l, F j, Y', '<span class="sermon_date">', '</span> '); wpfc_sermon_meta('service_type', ' <span class="service_type">(', ')</span> ');
+					wpfc_sermon_date(get_option('date_format'), '<span class="sermon_date">', '</span> '); echo the_terms( $post->ID, 'wpfc_service_type',  ' <span class="service_type">(', ' ', ')</span>');
 			?></p><p><?php
 					wpfc_sermon_meta('bible_passage', '<span class="bible_passage">Bible Text: ', '</span> | ');
 					echo the_terms( $post->ID, 'wpfc_preacher',  '<span class="preacher_name">', ', ', '</span>');
@@ -963,7 +999,7 @@ function add_wpfc_sermon_content($content) {
 	if ( 'wpfc_sermon' == get_post_type() ){
 		if ( is_archive() ) {
 			$new_content = render_wpfc_sermon_excerpt();
-		} else {
+		} elseif ( is_singular() && is_main_query() ) {
 			$new_content = render_wpfc_sermon_single();
 		}
 		$content = $new_content;	
@@ -1058,4 +1094,7 @@ function wpfc_mp3_duration($mp3_url) {
 
 		return $playtime_string;
 }
+
+// Add Upgrade Functions
+require_once plugin_dir_path( __FILE__ ) . '/includes/upgrade.php';
 ?>

@@ -1,25 +1,31 @@
 <?php
 /**
- * The template for displaying Sermon Archive pages.
- * To see this visit the http://yourdomain.com/sermons if you have permalinks enabled 
- * or http://yourdomain.com/?post_type=wpfc_sermon if not.
- * 
+ * The template for displaying Sermon Topics pages.
+ *
+ * @package WordPress
+ * @subpackage Twenty_Ten
+ * @since Twenty Ten 1.0
  */
 
-get_header(); ?>
+get_header(); 
 
+?>
 
 		<div id="container">
 			<div id="content" role="main">
+
+				<h1 class="page-title"><?php
+					printf( __( 'Sermons by Book: %s', 'sermon-manager' ), '<span>' . single_cat_title( '', false ) . '</span>' );
+				?></h1>
+				<div id="wpfc_sermon_tax_description">
 				<?php
-				$sermon_settings = get_option('wpfc_options');
-				$archive_title = $sermon_settings['archive_title'];
-				if(empty($archive_title)):
-					$archive_title = 'Sermons';
-				endif; 
+					/* Description */
+					$category_description = category_description();
+					if ( ! empty( $category_description ) )
+						echo '<div class="archive-meta">' . $category_description . '</div>';
 				?>
-				<h1 class="page-title"><?php echo $archive_title; ?></h1>
-				<?php render_wpfc_sorting(); ?>
+				</div>
+				
 				<?php /* Display navigation to next/previous pages when applicable */ ?>
 				<?php if ( $wp_query->max_num_pages > 1 ) : ?>
 					<div id="nav-above" class="navigation">
