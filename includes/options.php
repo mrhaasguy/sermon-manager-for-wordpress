@@ -62,6 +62,11 @@ function wpfc_sermon_options_render_form() {
 			};
 		});
 		</script>
+		<?php $sermon_settings = get_option('wpfc_options');
+		$sermon_version = $sermon_settings['version'];
+		if(empty($sermon_version)):
+			wpfc_sermon_update();
+		endif; ?>
 		<!-- Display Plugin Icon, Header, and Description -->
 		<div class="icon32" id="icon-options-general"><br></div>
 		<h2><?php _e('Sermon Manager Options', 'sermon-manager'); ?></h2>
@@ -122,6 +127,13 @@ function wpfc_sermon_options_render_form() {
 					<th scope="row"><?php _e('Display audio player or video on archive pages', 'sermon-manager'); ?></th>
 					<td>
 						<label><input name="wpfc_options[archive_player]" type="checkbox" value="1" <?php if (isset($options['archive_player'])) { checked('1', $options['archive_player']); } ?> /> <?php _e('Display an audio player or video embed in the archive listing.', 'sermon-manager'); ?></label><br />
+					</td>
+				</tr>
+				<!-- temp -->
+				<tr valign="top" style="display:none;">
+					<th scope="row"><?php _e('Version ', 'sermon-manager'); ?><?php echo $options['version']; ?></th>
+					<td>			
+						<input type="text" size="65" name="wpfc_options[version]" value="<?php echo wpfc_plugin_get_version(); ?>" /> <span style="color:#666666;margin-left:2px;"><?php _e('Current Version', 'sermon-manager'); ?></span>
 					</td>
 				</tr>
 				</table>
