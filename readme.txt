@@ -72,6 +72,7 @@ Visit the [plugin homepage](http://wpforchurch.com/plugins/sermon-manager/ "Serm
 == Changelog ==
 = 1.7.4 = 
 * updated the way attachments are displayed. Now they will be available for download even if not attached to the sermon.
+* fix sermon-images shortcode
 
 = 1.7.3 = 
 * compatibility with WordPress 3.6
