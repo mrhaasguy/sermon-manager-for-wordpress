@@ -22,7 +22,7 @@ Super flexible shortcode for displaying sermons in page content.
 
 Display a grid of images assigned to speakers or series with a new shortcode [sermon-images]
 
-Display a list of sermon series, preachers, sermon topics, or book of the Bible with a new shortcode [list-sermons]
+Display a list of sermon series, preachers, sermon topics, or book of the Bible with the shortcode [list-sermons]
 
 iTunes podcasting support is available!
 
@@ -57,7 +57,11 @@ Visit the http://yourdomain.com/sermons if you have permalinks enabled or http:/
 
 = How do I create a menu link? =
 
-Go to Appearance => Menus. In the "Custom Links" box add "http://yourdomain.com/?post_type=wpfc_sermon" as the url and "Sermons" as the label; click "Add to Menu".
+Go to Appearance => Menus. In the "Links" box add "http://yourdomain.com/?post_type=wpfc_sermon" as the url and "Sermons" as the label; click "Add to Menu".
+
+= Why does my podcast feed return a 404 page not found error? =
+
+You may need to enable custom permalinks in Settings &rarr; Permalinks. You also may not have any posts published in WordPress. You either need to publish a post or use a [plugin](http://wordpress.org/plugins/rss-includes-pages/) to add your pages to the rss feed.
 
 = I wish Sermon Manager could... =
 
