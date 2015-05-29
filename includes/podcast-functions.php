@@ -71,23 +71,24 @@ function wpfc_podcast_add_item(){
 	?>
 	<itunes:author><?php echo $speaker ?></itunes:author>
 	<itunes:subtitle><?php echo $series ?></itunes:subtitle>
-	<itunes:summary><?php strip_tags( wpfc_sermon_meta('sermon_description') ); ?></itunes:summary>
+	<itunes:summary><?php wp_filter_nohtml_kses( wpfc_sermon_meta('sermon_description') ); ?></itunes:summary>
 	<?php if ( $post_image ) : ?>
 	<itunes:image href="<?php echo $post_image; ?>" />
 	<?php endif; ?>
-	<?php if ( $audio == '' ) : ?>
+	<?php if ( $audio !== '' ) : ?>
 		<enclosure url="<?php echo $audio; ?>" length="0" type="audio/mpeg"/>
 	<?php endif; ?>
 	<itunes:duration><?php echo esc_html( $audio_duration ); ?></itunes:duration>
 	<?php if( $topics ) { ?>
-		<itunes:keywords><?php echo esc_html( $topics ); ?></itunes:keywords><?php } 
+		<itunes:keywords><?php echo esc_html( $topics ); ?></itunes:keywords>
+	<?php } 
 }
 
 //Display the sermon description as the podcast summary
 function wpfc_podcast_summary ($content) {
 	global $post;
 	//$content = '';
-	$content = strip_tags( get_wpfc_sermon_meta('sermon_description') ); 
+	$content = wp_filter_nohtml_kses( get_wpfc_sermon_meta('sermon_description') ); 
 		return $content;
 }
 
@@ -98,11 +99,37 @@ function wpfc_podcast_item_date ($time, $d = 'U', $gmt = false) {
 	return $time;
 }
 
-// Filter the date on sermons only
+// Use the Title from the Podcast Settings
+function wpfc_modify_podcast_title ($title) {
+	$settings = get_option('wpfc_options'); 
+	$podcast_title = esc_html( $settings['title'] );
+	if ($podcast_title != '')
+			$title = $podcast_title;
+	return $title;
+}
+function wpfc_bloginfo_rss_filter($info, $show) {
+	$settings = get_option('wpfc_options'); 
+	$podcast_title = esc_html( $settings['title'] );
+	if ($show == 'name') {
+		$title = $podcast_title;
+		if ($title != '')
+			$info = $title;
+	}
+	elseif ($show == 'description') {
+		$description = wp_filter_nohtml_kses( $settings['itunes_summary'] );
+		if ($description != '')
+			$info = $description;
+	}
+	return $info;
+}
+
+// Filter the feed on sermons only
 function wpfc_modify_sermon_date( $query ) {
 	if ( !is_admin() && $query->is_main_query() && $query->is_feed() ) :
 	if( is_post_type_archive('wpfc_sermon') || is_tax( 'wpfc_preacher' ) || is_tax( 'wpfc_sermon_topics' ) || is_tax( 'wpfc_service_type' ) || is_tax( 'wpfc_sermon_series' ) || is_tax( 'wpfc_bible_book' ) ) {
 		add_filter ( 'get_post_time', 'wpfc_podcast_item_date', 10, 3);
+		add_filter('bloginfo_rss', 'wpfc_bloginfo_rss_filter', 10, 2);
+		add_filter( 'wp_title_rss', '__return_null', 99, 3);
 		add_action( 'rss_ns', 'wpfc_podcast_add_namespace' );
 		add_action( 'rss2_ns', 'wpfc_podcast_add_namespace' );
 		add_action('rss_head', 'wpfc_podcast_add_head');
